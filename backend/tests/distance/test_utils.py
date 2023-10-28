@@ -2,8 +2,7 @@
 
 import numpy as np
 
-from lunchheros.distance._utils import calculate_distance_matrix
-from lunchheros.distance import ManhattanDistance
+from lunchheros.distance import MahattanDistance, calculate_distance_matrix
 
 
 def test_calculate_distance_matrix():
@@ -21,7 +20,7 @@ def test_calculate_distance_matrix():
         for j, vec2 in enumerate(users):
             dist[i, j] = np.sum(np.abs(vec1 - vec2))
     # calculate the manhattan distance using the function
-    dist2 = calculate_distance_matrix(users, distance=ManhattanDistance)
+    dist2 = calculate_distance_matrix(users, distance=MahattanDistance)
 
     print(dist)
     print(dist2)

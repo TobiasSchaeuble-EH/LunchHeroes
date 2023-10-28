@@ -2,5 +2,6 @@
 
 from lunchheros.distance._distances import EuclideanDistance, MahattanDistance
 
-__all__ = ["EuclideanDistance",
-           "MahattanDistance"]
+from lunchheros.distance._utils import calculate_distance_matrix
+
+__all__ = ["EuclideanDistance", "MahattanDistance", "calculate_distance_matrix"]
