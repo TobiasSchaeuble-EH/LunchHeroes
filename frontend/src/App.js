@@ -1,25 +1,28 @@
 import React, { useState } from 'react';
 // import logo from './logo.svg';
 import './App.css';
-import Login from './Components/Login'; 
-import Profile from './Components/Profile'; 
-import {useSelector} from 'react-redux';  // import useSelector from react-redux
+import Login from './Components/Login';
+import Profile from './Components/Profile';
+import Status from './Components/Status';
+
+import { useSelector } from 'react-redux';  // import useSelector from react-redux
 import { Route, Navigate, Routes } from 'react-router-dom';  // import Route and Navigate from react-router-dom
 
 function App() {
-  const userDetails = {
+  const props = {
     name: "John Doe",
     email: "johndoe@example.com",
     location: "New York, USA",
     department: "Engineering",
-    groupSize: 3,
-    profilePicture: "./profile.png",
-    timeSlot: "10:00 AM - 11:00 AM",
-    interests: ["Coding", "Traveling", "Reading"]
+    groupSize: 2,
+    // profilePicture: "./profile.png",
+    timeSlot: "10:00",
+    interests: ["Coding", "Traveling", "Reading"],
+    isScheduled: true
   };
 
-  const [groupSize, setGroupSize] = useState(userDetails.groupSize);
-  const [timeSlot, setTimeSlot] = useState(userDetails.timeSlot);
+  const [groupSize, setGroupSize] = useState(props.groupSize);
+  const [timeSlot, setTimeSlot] = useState(props.timeSlot);
 
   const handleGroupSizeChange = (size) => {
     setGroupSize(size);
@@ -31,11 +34,34 @@ function App() {
 
   const user = useSelector(state => state.session.user);
 
+  const Wrapper = () => {
+    return (
+      <div>
+        <Profile
+          name={props.name}
+          email={props.email}
+          location={props.location}
+          department={props.department}
+          groupSize={groupSize}
+          timeSlot={timeSlot}
+          interests={props.interests}
+          onGroupSizeChange={handleGroupSizeChange} // Changed from props.onGroupSizeChange
+          onTimeSlotChange={handleTimeSlotChange}   // Changed from props.onTimeSlotChange
+        />
+        <Status isScheduled={props.isScheduled} />
+        <Status isScheduled={!props.isScheduled} />
+      </div>
+    );
+  }
+
   console.log(user);
   return (
-  <>
+    <>
       <Routes>
-      <Route element={<Profile />} path="/" />
+        <Route element={
+          <Wrapper
+          />
+        } path="/" />
         {/* {user ? (
           //routes that will be available ONLY when user is logged in
           //add additional routes here
@@ -46,8 +72,8 @@ function App() {
           <Route path="*" element={<Navigate to="/" replace />} />
         )}
         <Route element={<Login />} path="/" /> */}
-     </Routes>
-     </>
+      </Routes>
+    </>
   );
 }
 
