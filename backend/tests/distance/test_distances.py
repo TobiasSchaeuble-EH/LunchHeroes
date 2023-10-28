@@ -17,3 +17,17 @@ def test_euclidean_distance():
     dist_func = EuclideanDistance().calculate(a, b)
 
     assert dist == dist_func
+
+
+def test_euclidean_distance_bool():
+    """Tests for the euclidean distance."""
+
+    # make a vector of 3 dimensions
+    a = np.array([1, 0, 1])
+    b = np.array([1, 0, 0])
+    # calculate the euclidean distance
+    dist = np.linalg.norm(a - b)
+    # calculate the euclidean distance using the function
+    dist_func = EuclideanDistance().calculate(a, b)
+
+    assert dist == dist_func
