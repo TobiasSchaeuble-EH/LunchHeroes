@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useDispatch } from "react-redux";
 
 import { logout } from "../store/session";
 import { useNavigate } from "react-router-dom";
@@ -7,8 +8,8 @@ import "../SCSS/navigation.css";
 function ProfileButton({ user }) {
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
-  const navigate= useNavigate()
-
+  const navigate= useNavigate();
+  const dispatch = useDispatch();
   const openMenu = () => {
     if (showMenu) return;
     setShowMenu(true);
@@ -28,8 +29,11 @@ function ProfileButton({ user }) {
 
   const handleLogout = (e) => {
     e.preventDefault();
-    logout();
-    navigate("/");
+    dispatch(logout())
+    .then(() => {
+      navigate("/");
+      closeMenu();
+    })
   };
 
   const navUserProfile = (e) => {
