@@ -14,6 +14,10 @@ const Scheduling = (props) => {
     return slots;
   };
 
+  const featureSoon = () => {
+    window.alert("Feature coming soon!");
+  }
+
   return (
     <div className="scheduling-container">
       <div className="scheduling-header">
@@ -22,7 +26,7 @@ const Scheduling = (props) => {
       <div className="time-dropdown-guests-slider">
         <div className="time-dropdown">
           <div>
-            <strong>Time Slot:</strong>
+            <strong className="time-slot">Time Slot:</strong>
             <select
               value={props.timeSlot}
               onChange={(e) => props.onTimeSlotChange(e.target.value)}
@@ -37,7 +41,7 @@ const Scheduling = (props) => {
         </div>
         <div className="guests-slider">
           <div className="slider">
-            <strong>Group Size:</strong>
+            <strong className="group-size">Group Size:</strong>
             <input
               type="range"
               min="2"
@@ -51,8 +55,8 @@ const Scheduling = (props) => {
       </div>
       <div className="button-div">
         <button className="randomize-button">Randomize</button>
-        <button className="customize-button">Customize</button>
-        <button className="view-all-button">View All</button>
+        <button className="customize-button" onClick={featureSoon}>Customize</button>
+        <button className="view-all-button" onClick={featureSoon}>View All Settings</button>
       </div>
     </div>
   );

@@ -29,5 +29,10 @@
 .button-div > button{
     width: 250px;
     height: 150px;
-    margin: 50px
+    margin: 50px;
+    font-size: 35px;
+}
+
+.group-size, .time-slot {
+    padding-right: 20px;
 }
