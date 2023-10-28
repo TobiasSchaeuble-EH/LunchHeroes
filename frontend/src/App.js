@@ -68,8 +68,8 @@ function App() {
         <Route element={
           <Wrapper
           />
-        } path="/" />
-        {/* {user ? (
+        } path="/Profile" />
+         {user ? (
           //routes that will be available ONLY when user is logged in
           //add additional routes here
           <Route element={<Profile />} path="/home" />
@@ -78,7 +78,7 @@ function App() {
           //do not add additional routes here
           <Route path="*" element={<Navigate to="/" replace />} />
         )}
-        <Route element={<Login />} path="/" /> */}
+        <Route element={<Login />} path="/" /> 
       </Routes>
     </>
   );

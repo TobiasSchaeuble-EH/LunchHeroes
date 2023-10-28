@@ -34,7 +34,7 @@ function Profile(props) {
           <input 
             type="range" 
             min="2" 
-            max="4" 
+            max="6" 
             value={props.groupSize} 
             onChange={e => props.onGroupSizeChange(e.target.value)}
           />
