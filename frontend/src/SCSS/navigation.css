@@ -110,20 +110,12 @@
   }
 
   .profile-button-picture {
-    height: 25px;
+    height: 50px !important;
     color: lightgray
   }
 
 
   @media only screen and (max-width: 600px) {
-    .nav-sign-up > button {
-      height: 40px;
-
-    }
-    .nav-sign-up {
-      margin-right:20px
-    }
-
     .profile-dropdown {
       position: absolute;
       left: 65%;
