@@ -42,21 +42,21 @@ function App() {
 
   const Wrapper = () => {
     return (
-      <div>
-        <Profile
+        <p>
+        </p>
+        <a
           name={props.name}
-          email={props.email}
-          location={props.location}
-          department={props.department}
-          groupSize={groupSize}
-          timeSlot={timeSlot}
-          interests={props.interests}
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
           onGroupSizeChange={handleGroupSizeChange} // Changed from props.onGroupSizeChange
           onTimeSlotChange={handleTimeSlotChange}   // Changed from props.onTimeSlotChange
-        />
-        <Status isScheduled={props.isScheduled} />
+        </a>
+      </header>
         <Status isScheduled={!props.isScheduled} />
-      </div>
     );
   }
 

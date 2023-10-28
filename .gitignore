@@ -1,0 +1,4 @@
+# Poetry lock
+*.lock
+
+.env
