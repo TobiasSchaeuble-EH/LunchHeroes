@@ -38,6 +38,7 @@ export const getMatchedUsers = (userId) => async (dispatch) => {
     console.log(response)
     if (response.ok) {
         const data = await response;
+        console.log(data)
         dispatch(setMeeting(data));
         if (data.errors) {
             return;
@@ -52,9 +53,11 @@ const initialState = {
 export default function meetingReducer(state = initialState, action) {
 	switch (action.type) {
 		case SET_MEETING:
-			return { user: action.payload };
+            state.meeting = action.payload
+            console.log(state)
+			return state ;
 		case REMOVE_MEETING:
-			return { user: null };
+			return null ;
 		default:
 			return state;
 	}

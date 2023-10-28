@@ -1,7 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import {useDispatch} from 'react-redux';
 import './../SCSS/Status.css';
+import { useSelector } from 'react-redux';
+import { getMatchedUsers } from '../store/scheduling';
 
 function Status(props) {
+  const dispatch = useDispatch()
+  // const isScheduled = useState((state) => state.meetingReducer.meeting)
+  // console.log(isScheduled)
+  const user = useSelector((state) => state.session.user);
+  const userId = user?.user?.id;
+
+
+  useEffect(() => {
+    dispatch(getMatchedUsers(userId))
+  }, [userId])
+
+
   return (
     <div className="status-container">
       {props.isScheduled ? (
