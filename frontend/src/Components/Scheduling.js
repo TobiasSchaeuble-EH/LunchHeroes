@@ -15,6 +15,9 @@ const Scheduling = (props) => {
     return slots;
 };
 
+const featureSoon = () => {
+  window.alert("Feature coming soon!");
+}
   return (
 <div className="scheduling-container">
   <div className="scheduling-header">
@@ -56,7 +59,7 @@ const Scheduling = (props) => {
       <p>Use default settings for a quick match.</p>
     </div>
     <div className="advanced-actions">
-      <button className="customize-button">Customize</button>
+      <button className="customize-button" onClick={featureSoon}>Customize</button>
       <p>Adjust settings to find your perfect match.</p>
     </div>
   </div>
