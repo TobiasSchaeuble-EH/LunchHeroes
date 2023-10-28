@@ -6,3 +6,17 @@ Note:
   - This subpackage should not depend on other subpackages, so we
     do not introduce circular imports.
 """
+
+from dataclasses import dataclass
+
+from typing import Union
+
+
+@dataclass
+class Feature:
+    value: Union[bool, int, float]
+
+
+@dataclass
+class Interest(Feature):
+    value: bool
