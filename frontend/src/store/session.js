@@ -40,7 +40,6 @@ export const login = (email, password) => async (dispatch) => {
 		  redirectTo: 'https//example.com/welcome'
 		}
 	})
-	console.log('RESPONSE', response)
 
 	if (response.data.user) {
 		const data = response.data
@@ -49,7 +48,6 @@ export const login = (email, password) => async (dispatch) => {
 		return data;
 	} else if (response.error) {
 		const data = response.error
-		console.log(data)
 		return data.errors;
 	} else {
 		return ["An error occurred. Please try again."];

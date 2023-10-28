@@ -14,8 +14,6 @@ import Scheduling from './Components/Scheduling';
 function App() {
 
   const user = useSelector(state => state.session.user);
-  console.log("LOGIN USER", user?.user?.id);
-  console.log("LOGIN", user);
 
   // const [isLoaded, setIsLoaded] = useState(false);
   // useEffect(() => {
@@ -49,11 +47,11 @@ function App() {
 
   const RedirectToHome = () => {
     const navigate = useNavigate();
-  
+
     useEffect(() => {
       navigate('/home');
     }, [navigate]);
-  
+
     return null; // This component does not render anything to the DOM
   }
 
@@ -76,7 +74,6 @@ function App() {
     );
   }
 
-  console.log(user);
   return (
     <>
       <Navigation /*isLoaded={isLoaded}*/ />
@@ -87,7 +84,7 @@ function App() {
           <>
           <Route path="/" element={<RedirectToHome />} />
           <Route element={<Wrapper />} path="/home" />
-          <Route element={       
+          <Route element={
           <Profile
           name={props.name}
           email={props.email}

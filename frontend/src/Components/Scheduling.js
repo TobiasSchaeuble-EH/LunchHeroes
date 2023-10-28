@@ -1,6 +1,15 @@
 import React from 'react';
 import '../SCSS/scheduling.css';
+import {useDispatch} from 'react-redux';
+import {useSelector} from 'react-redux';  // import useSelector from react-redux
+import { addUserToScheduling } from '../store/scheduling';
+
 const Scheduling = (props) => {
+    const dispatch = useDispatch()
+    const user = useSelector((state) => state.session.user);
+    const userId = user?.user?.id;
+
+
     const generateTimeSlots = () => {
         let slots = [];
         for (let i = 11; i <= 14; i++) {
@@ -13,9 +22,14 @@ const Scheduling = (props) => {
         }
         return slots;
     };
+
     const featureSoon = () => {
         window.alert('Feature coming soon!');
     };
+
+    const sendSchedulingData = () => {
+        dispatch(addUserToScheduling(userId))
+    }
     return (
         <div className="scheduling-container">
             <div className="scheduling-header">
@@ -57,7 +71,7 @@ const Scheduling = (props) => {
             </div>
             <div className="actions-container">
                 <div className="quick-actions">
-                    <button className="view-all-button">Randomize</button>
+                    <button className="view-all-button" onClick={sendSchedulingData}>Randomize</button>
                     <p>Use default settings for a quick match.</p>
                 </div>
                 <div className="advanced-actions">
