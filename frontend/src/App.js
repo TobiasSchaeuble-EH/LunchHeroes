@@ -41,7 +41,12 @@ function App() {
   const Wrapper = () => {
     return (
       <div>
-        <Scheduling />
+        <Scheduling
+          groupSize={groupSize}
+          timeSlot={timeSlot}
+          onGroupSizeChange={handleGroupSizeChange} // Changed from props.onGroupSizeChange
+          onTimeSlotChange={handleTimeSlotChange}
+        />
         <Profile
           name={props.name}
           email={props.email}
@@ -51,11 +56,10 @@ function App() {
           timeSlot={timeSlot}
           interests={props.interests}
           onGroupSizeChange={handleGroupSizeChange} // Changed from props.onGroupSizeChange
-          onTimeSlotChange={handleTimeSlotChange}   // Changed from props.onTimeSlotChange
+          onTimeSlotChange={handleTimeSlotChange} // Changed from props.onTimeSlotChange
         />
         <Status isScheduled={props.isScheduled} />
         <Status isScheduled={!props.isScheduled} />
-
       </div>
     );
   }
