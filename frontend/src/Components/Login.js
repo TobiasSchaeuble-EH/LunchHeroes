@@ -4,16 +4,16 @@ import { login } from '../store/session';
 import './../SCSS/Login.css';
 
 function Login() {
-  const [username, setUsername] = useState('');
+  const [email, setemail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
+
 
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // Here you can send the username and password to your server
-    console.log('Username:', username, 'Password:', password);
-    dispatch(login(username, password));
+    dispatch(login(email, password));
 
   };
 
@@ -23,10 +23,10 @@ function Login() {
       <form onSubmit={handleSubmit}>
         <div>
           <label>
-            Username:
+            Email:
             <input
               type="text"
-              value={username}
+              value={email}
               onChange={(e) => setUsername(e.target.value)}
               required
             />
@@ -44,7 +44,7 @@ function Login() {
           </label>
         </div>
         <div>
-          <button type="submit">Login</button>
+          <button type="submit" onclick={signInWithEmail}>Login</button>
         </div>
       </form>
     </div>

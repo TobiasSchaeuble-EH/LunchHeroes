@@ -11,7 +11,10 @@ import { Route, Navigate, Routes } from 'react-router-dom';  // import Route and
 import Scheduling from './Components/Scheduling';
 import{ supabase } from './supabaseclient';
 
+
+
 function App() {
+
   // const [isLoaded, setIsLoaded] = useState(false);
   // useEffect(() => {
   //   dispatch(authenticate()).then(() => setIsLoaded(true));

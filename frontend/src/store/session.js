@@ -1,6 +1,7 @@
 // constants
 const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
+const supabase = createClient("https://<project>.supabase.co", "<your-anon-key>")
 
 const setUser = (user) => ({
 	type: SET_USER,
@@ -30,16 +31,13 @@ export const authenticate = () => async (dispatch) => {
 };
 
 export const login = (email, password) => async (dispatch) => {
-	const response = await fetch("/api/auth/login", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify({
-			email,
-			password,
-		}),
-	});
+	const { data, error } = await supabase.auth.signInWithPassword({
+		email: email,
+		password: password,
+		options: {
+		  redirectTo: 'https//example.com/welcome'
+		}
+	})
 
 	if (response.ok) {
 		const data = await response.json();
