@@ -11,8 +11,8 @@ const removeMeeting = () => ({
 });
 
 
-export const addUserToScheduling = (userId) => async (dispatch) => {
-    const response = await fetch(`/button_trigger/${userId}`, {
+export const addUserToScheduling = (userId, indexId) => async (dispatch) => {
+    const response = await fetch(`/button_trigger/${userId}/${indexid}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
