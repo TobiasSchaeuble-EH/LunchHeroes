@@ -16,9 +16,55 @@
 
 .time-dropdown-guests-slider {
     display: flex;
-    gap: 20px;
-    font-size: 25px;
+    gap: 30px;
+    align-items: center;
+    padding: 20px;
+    background-color: #f6f6f6;
+    border-radius: 8px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
 }
+
+.time-dropdown, .guests-slider {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.time-dropdown strong, .guests-slider strong {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+select {
+    font-size: 18px;
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    appearance: none; /* This removes the default OS styling */
+    background-color: #fff;
+    background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 140 140" width="16" height="16" xmlns="http://www.w3.org/2000/svg"><path d="M35,45l70,70 M105,45L35,115" stroke="#333" stroke-width="10" fill="none"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    cursor: pointer;
+}
+
+input[type="range"] {
+    width: 100%;
+    cursor: pointer;
+}
+
+select, input[type="range"] {
+    margin-left: 10px; /* added this line */
+}
+
+
+.slider {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
 
 .button-div {
     width: 100%;
