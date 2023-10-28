@@ -5,6 +5,7 @@ import Login from './Components/Login';
 import Navigation from './Components/Navigation';
 import { useNavigate, useDispatch } from "react-router-dom";
 import Profile from './Components/Profile';
+import Status from './Components/Status';
 import {useSelector} from 'react-redux';  // import useSelector from react-redux
 import { Route, Navigate, Routes } from 'react-router-dom';  // import Route and Navigate from react-router-dom
 
