@@ -9,6 +9,7 @@ import Status from './Components/Status';
 
 import { useSelector } from 'react-redux';  // import useSelector from react-redux
 import { Route, Navigate, Routes } from 'react-router-dom';  // import Route and Navigate from react-router-dom
+import Scheduling from './Components/Scheduling';
 
 function App() {
   const props = {
@@ -40,6 +41,7 @@ function App() {
   const Wrapper = () => {
     return (
       <div>
+        <Scheduling />
         <Profile
           name={props.name}
           email={props.email}
@@ -53,6 +55,7 @@ function App() {
         />
         <Status isScheduled={props.isScheduled} />
         <Status isScheduled={!props.isScheduled} />
+
       </div>
     );
   }
