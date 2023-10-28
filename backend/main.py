@@ -1,5 +1,6 @@
-from src.routes.users.getUserWithId import getUserWithId
-from src.routes.users.getAllUsers import getAllUsers
+
+
+from src.routes.users.userFunctions import getAllUsers, getUserWithId
 from fastapi import FastAPI
 from supabase_client import supabase_client
 
@@ -12,7 +13,7 @@ def read_root():
     return {"Hello": "World", "data" : data}
 
 @app.get("/users")
-def read_root():
+def load_all_users():
     allUsers = getAllUsers()
     return { "allUsers" : allUsers}
 
