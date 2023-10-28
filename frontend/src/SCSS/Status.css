@@ -1,0 +1,28 @@
+.status-container {
+  margin-top: 20px;
+  padding: 20px;
+  border: 2px solid #8f2a2c;   /* Border color from .winter-gray-3 */
+  background-color: #e6ecf0;  /* Background color from .winter-gray-1 */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adding a subtle shadow */
+  text-align: center;
+  transition: transform 0.3s; /* For a slight scaling effect on hover */
+  display: flex;  /* Added flexbox to center content */
+  justify-content: center;  /* Center content horizontally */
+  align-items: center;  /* Center content vertically */
+  height: 100px;  /* Added a fixed height for consistent appearance */
+}
+
+.status-container:hover {
+  transform: scale(1.02); /* Slight scaling effect on hover */
+}
+
+.scheduled {
+  color: #a8005c;  /* Text color from .magenta-2 */
+  font-weight: 600; /* Making the text bold */
+}
+
+.not-scheduled {
+  color: #e94c0a;  /* Text color from .red-orange-2 */
+  font-weight: 600; /* Making the text bold */
+}

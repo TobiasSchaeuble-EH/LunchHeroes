@@ -1,1 +1,0 @@
-"""Subpackage related to use the distance matrix to  cluster the users into groups."""
