@@ -17,7 +17,7 @@ function Profile(props) {
 
     return (
       <div className="profile-container">
-        <img src={props.profilePicture} alt="Profile" className="profile-picture"/>
+        {/* <img src={props.profilePicture} alt="Profile" className="profile-picture"/> */}
         <h2>{props.name}</h2>
         <div className="profile-detail">
           <strong>Email:</strong> {props.email}
