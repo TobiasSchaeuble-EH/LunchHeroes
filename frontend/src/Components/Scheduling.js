@@ -30,6 +30,9 @@ const Scheduling = (props) => {
     const sendSchedulingData = () => {
         dispatch(addUserToScheduling(userId))
     }
+
+
+
     return (
       <>
         <div className="scheduling-container">
@@ -55,7 +58,7 @@ const Scheduling = (props) => {
                     </div>
                 </div>
                 <div className="view-all-container">
-                <button className="view-all-button" onClick={featureSoon}>Request match</button>
+                <button className="view-all-button" onClick={sendSchedulingData}>Request match</button>
             </div>
                 {/* <div className="guests-slider">
                     <div className="slider">

@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-url: str = os.getenv("SUPABASE_URL")
-key: str = os.getenv("SUPABASE_KEY")
+url = os.getenv("SUPABASE_URL")
+key = os.getenv("SUPABASE_KEY")
+print(url, key)
 supabase_client: Client = create_client(url, key)
