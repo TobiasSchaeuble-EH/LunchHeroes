@@ -1,4 +1,7 @@
 """Subpackage related to calculation of distances between users."""
 
+from lunchheros.distance._distances import EuclideanDistance, MahattanDistance
 
-__all__ = ["EuclideanDistances"]
+from lunchheros.distance._utils import calculate_distance_matrix
+
+__all__ = ["EuclideanDistance", "MahattanDistance", "calculate_distance_matrix"]
