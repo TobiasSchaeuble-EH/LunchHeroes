@@ -1,5 +1,7 @@
 import random
 
+from lunchheros.db.dbFetcher import parse_user_id_tolist
+
 
 def _randomize_groups(group_size: int, users: list[str]) -> list[list]:
     """Randomize the groups of users.
@@ -35,3 +37,18 @@ def _randomize_groups(group_size: int, users: list[str]) -> list[list]:
         groups[i].append(users[num_groups * group_size + i])
 
     return groups
+
+
+def match(userids):
+
+    # convert userids to list
+    userids = parse_user_id_tolist(userids)
+    # group size
+    groupsize = 5
+    # randomize the groups
+    groups = _randomize_groups(groupsize, userids)
+    # return the groups
+    return groups
+
+
+
