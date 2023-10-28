@@ -77,10 +77,14 @@ select, input[type="range"] {
     box-sizing: border-box;
 }
 
+
 @media (max-width: 768px) {
     .scheduling-container {
         width: 100%; /* Adjusted for better mobile presentation */
         padding-bottom: 20px;
+    }
+    .scheduling-header {
+        text-align: center;
     }
 
     .time-dropdown-guests-slider {
@@ -116,7 +120,7 @@ select, input[type="range"] {
 }
 
 .quick-actions p, .advanced-actions p {
-    font-size: 14px;
+    font-size: 30px;
     color: #777;
     text-align: center;
 }
@@ -141,4 +145,12 @@ select, input[type="range"] {
 
 .view-all-button:hover {
     background-color: #45a049;
+}
+
+.randomize-button {
+    height: 100px !important;
+    width: 250px !important;
+    font-size: 25px;
+    margin-top: 25px;
+
 }
