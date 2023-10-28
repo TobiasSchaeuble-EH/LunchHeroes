@@ -1,7 +1,9 @@
+import { supabase } from "../supabaseclient";
+
 // constants
 const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
-const supabase = createClient("https://<project>.supabase.co", "<your-anon-key>")
+
 
 const setUser = (user) => ({
 	type: SET_USER,
@@ -31,23 +33,24 @@ export const authenticate = () => async (dispatch) => {
 };
 
 export const login = (email, password) => async (dispatch) => {
-	const { data, error } = await supabase.auth.signInWithPassword({
+	const response = await supabase.auth.signInWithPassword({
 		email: email,
 		password: password,
 		options: {
 		  redirectTo: 'https//example.com/welcome'
 		}
 	})
+	console.log('RESPONSE', response)
 
-	if (response.ok) {
-		const data = await response.json();
+	if (response.data.user) {
+		const data = response.data
+		console.log('DATA', data)
 		dispatch(setUser(data));
 		return data;
-	} else if (response.status < 500) {
-		const data = await response.json();
-		if (data.errors) {
-			return data.errors;
-		}
+	} else if (response.error) {
+		const data = response.error
+		console.log(data)
+		return data.errors;
 	} else {
 		return ["An error occurred. Please try again."];
 	}

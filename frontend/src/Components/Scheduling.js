@@ -56,16 +56,16 @@ const featureSoon = () => {
   <div className="actions-container">
     <div className="quick-actions">
       <button className="randomize-button">Randomize</button>
-      {/* <p>Use default settings for a quick match.</p> */}
+      <p>Use default settings for a quick match.</p>
     </div>
-    {/* <div className="advanced-actions">
+    <div className="advanced-actions">
       <button className="customize-button" onClick={featureSoon}>Customize</button>
       <p>Adjust settings to find your perfect match.</p>
-    </div> */}
+    </div>
   </div>
-  {/* <div className="view-all-container">
+  <div className="view-all-container">
     <button className="view-all-button">View All Matches</button>
-  </div> */}
+  </div>
 </div>
   );
 };

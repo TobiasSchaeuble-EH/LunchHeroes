@@ -44,11 +44,13 @@ function App() {
   }
 
   const user = useSelector(state => state.session.user);
+  console.log("LOGIN USER", user?.user?.id);
+  console.log("LOGIN", user);
 
   const Wrapper = () => {
     return (
       <div>
-                <Scheduling
+        <Scheduling
           groupSize={groupSize}
           timeSlot={timeSlot}
           onGroupSizeChange={handleGroupSizeChange} // Changed from props.onGroupSizeChange
@@ -63,7 +65,7 @@ function App() {
           timeSlot={timeSlot}
           interests={props.interests}
           onGroupSizeChange={handleGroupSizeChange} // Changed from props.onGroupSizeChange
-          onTimeSlotChange={handleTimeSlotChange}   // Changed from props.onTimeSlotChange
+          onTimeSlotChange={handleTimeSlotChange} // Changed from props.onTimeSlotChange
         />
         <Status isScheduled={props.isScheduled} />
         <Status isScheduled={!props.isScheduled} />
@@ -74,29 +76,21 @@ function App() {
   console.log(user);
   return (
     <>
-
-    {/* <button onClick={async () => {
-const {data} = await supabase.from('users').select('*, companies(*)')
-
-console.log(data)
-
-    }}>Test</button> */}
       <Navigation /*isLoaded={isLoaded}*/ />
       <Routes>
-        <Route element={
-          <Wrapper
-          />
-        } path="/" />
-         {user ? (
+        {user ? (
           //routes that will be available ONLY when user is logged in
           //add additional routes here
-          <Route element={<Profile />} path="/home" />
+          <Route element={<Wrapper />} path="/home" />
         ) : (
+          // <Route element={<Profile />} path="/home" />
           //will redirect to '/' from any url if no user is logged in
           //do not add additional routes here
-          <Route path="*" element={<Navigate to="/" replace />} />
+          <>
+            <Route path="*" element={<Navigate to="/login" replace />} />
+            <Route element={<Login />} path="/login" />
+          </>
         )}
-        <Route element={<Login />} path="/" />
       </Routes>
     </>
   );
