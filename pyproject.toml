@@ -44,7 +44,7 @@ color = true
 
 
 [tool.pyright]
-include = ["src"]
+include = ["backend/src"]
 exclude = ["**/node_modules",
     "**/__pycache__",
     "src/experimental",
