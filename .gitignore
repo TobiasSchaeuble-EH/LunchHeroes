@@ -1,2 +1,2 @@
 # Poetry lock
-poetry.lock
+*.lock
