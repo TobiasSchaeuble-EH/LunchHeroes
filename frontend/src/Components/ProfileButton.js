@@ -1,14 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useDispatch } from "react-redux";
-import { logout } from "../../store/session";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import "./Navigation.css"
+
+import { logout } from "../store/session";
+import { useNavigate } from "react-router-dom";
+import "../SCSS/navigation.css";
 
 function ProfileButton({ user }) {
-  const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
-  const history = useHistory()
+  const navigate= useNavigate()
 
   const openMenu = () => {
     if (showMenu) return;
@@ -23,42 +22,43 @@ function ProfileButton({ user }) {
         setShowMenu(false);
       }
     };
-
     document.addEventListener("click", closeMenu);
-
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
 
   const handleLogout = (e) => {
     e.preventDefault();
-    dispatch(logout());
-    history.push('/')
+    logout();
+    navigate("/");
   };
+
+  const navUserProfile = (e) => {
+    e.preventDefault();
+    navigate('/profile')
+  }
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
   const closeMenu = () => setShowMenu(false);
 
-
   return (
     <>
       <button onClick={openMenu} className="user-profile-dropdown-button">
-        {user.username}
-        <img className="profile-dropdwon-down-arrow" src='/icons/down-arrow_5343114.png' alt='down arrow'/>
+        {/* {user.username} */}
+        <img
+          className="profile-button-picture"
+          src="icons/profile-button.png"
+          alt="profile button"
+        />
       </button>
       <ul className={ulClassName} ref={ulRef}>
-        {user ? (
           <>
             <div className="user-dropdown-menu">
-
-              <button onClick={handleLogout} className="drop-down-sign-out">Sign Out</button>
+              <button className="drop-down-profile-settings" onClick={navUserProfile}>Profile Settings</button>
+              <button onClick={handleLogout} className="drop-down-sign-out">
+                Sign Out
+              </button>
             </div>
-
           </>
-        ) : (
-          <>
-
-          </>
-        )}
       </ul>
     </>
   );

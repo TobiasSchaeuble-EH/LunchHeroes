@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
 // import logo from './logo.svg';
 import './App.css';
-import Login from './Components/Login'; 
-import Profile from './Components/Profile'; 
+import Login from './Components/Login';
+import Navigation from './Components/Navigation';
+import { useNavigate, useDispatch } from "react-router-dom";
+import Profile from './Components/Profile';
 import {useSelector} from 'react-redux';  // import useSelector from react-redux
 import { Route, Navigate, Routes } from 'react-router-dom';  // import Route and Navigate from react-router-dom
 
 function App() {
+  // const [isLoaded, setIsLoaded] = useState(false);
+  // useEffect(() => {
+  //   dispatch(authenticate()).then(() => setIsLoaded(true));
+  // }, [dispatch]);
+
   const userDetails = {
     name: "John Doe",
     email: "johndoe@example.com",
@@ -34,6 +41,7 @@ function App() {
   console.log(user);
   return (
   <>
+      <Navigation /*isLoaded={isLoaded}*/ />
       <Routes>
       <Route element={<Profile />} path="/" />
         {/* {user ? (

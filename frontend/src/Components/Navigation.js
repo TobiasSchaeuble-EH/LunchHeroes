@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import ProfileButton from "./ProfileButton";
-import { logout } from "../../store/session";
-import "./Navigation.css";
+import { logout } from "../store/session";
+import "../SCSS/navigation.css";
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
@@ -46,11 +46,11 @@ function Navigation({ isLoaded }) {
             </div>
             <div className="profile-create-user-logged-in">
                <div className={ulClassName} ref={ulRef}></div>
-              {isLoaded && (
+              {/* {isLoaded && ( */}
                 <div className="profile-button-user-logged-in">
                   <ProfileButton user={sessionUser} />
                 </div>
-              )}
+              {/* )} */}
             </div>
           </div>
           <span className="divider"></span>
