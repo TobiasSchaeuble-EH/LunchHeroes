@@ -1,0 +1,33 @@
+.scheduling-container {
+    width: 100%;
+    height: 250px;
+    margin-top: 50px;
+    margin-bottom: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.scheduling-header {
+    font-size: 35px;
+    margin-bottom: 50px;
+}
+
+
+.time-dropdown-guests-slider {
+    display: flex;
+    gap: 20px;
+    font-size: 25px;
+}
+
+.button-div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 50px
+}
+.button-div > button{
+    width: 250px;
+    height: 150px;
+    margin: 50px
+}
