@@ -3,9 +3,19 @@ import React, { useState } from 'react';
 import './App.css';
 import Login from './Components/Login';
 import Navigation from './Components/Navigation';
+// import { useNavigate, useDispatch } from "react-router-dom";
+import Profile from './Components/Profile';
 import Status from './Components/Status';
-
+import {useSelector} from 'react-redux';  // import useSelector from react-redux
+import { Route, Navigate, Routes } from 'react-router-dom';  // import Route and Navigate from react-router-dom
 import Scheduling from './Components/Scheduling';
+
+function App() {
+  // const [isLoaded, setIsLoaded] = useState(false);
+  // useEffect(() => {
+  //   dispatch(authenticate()).then(() => setIsLoaded(true));
+  // }, [dispatch]);
+
   const props = {
     name: "John Doe",
     email: "johndoe@example.com",
@@ -34,7 +44,7 @@ import Scheduling from './Components/Scheduling';
   const Wrapper = () => {
     return (
       <div>
-        <Scheduling
+                <Scheduling
           groupSize={groupSize}
           timeSlot={timeSlot}
           onGroupSizeChange={handleGroupSizeChange} // Changed from props.onGroupSizeChange
@@ -49,7 +59,7 @@ import Scheduling from './Components/Scheduling';
           timeSlot={timeSlot}
           interests={props.interests}
           onGroupSizeChange={handleGroupSizeChange} // Changed from props.onGroupSizeChange
-          onTimeSlotChange={handleTimeSlotChange} // Changed from props.onTimeSlotChange
+          onTimeSlotChange={handleTimeSlotChange}   // Changed from props.onTimeSlotChange
         />
         <Status isScheduled={props.isScheduled} />
         <Status isScheduled={!props.isScheduled} />
