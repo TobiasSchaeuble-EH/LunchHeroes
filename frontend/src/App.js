@@ -9,6 +9,9 @@ import Status from './Components/Status';
 import {useSelector} from 'react-redux';  // import useSelector from react-redux
 import { Route, Navigate, Routes } from 'react-router-dom';  // import Route and Navigate from react-router-dom
 import Scheduling from './Components/Scheduling';
+import { Button } from 'react-scroll';
+
+import{ supabase } from './supabaseclient';
 
 function App() {
   // const [isLoaded, setIsLoaded] = useState(false);
@@ -70,6 +73,13 @@ function App() {
   console.log(user);
   return (
     <>
+
+    <button onClick={async () => {
+const {data} = await supabase.from('users').select('*, companies(*)')
+
+console.log(data)
+
+    }}>Test</button>
       <Navigation /*isLoaded={isLoaded}*/ />
       <Routes>
         <Route element={
