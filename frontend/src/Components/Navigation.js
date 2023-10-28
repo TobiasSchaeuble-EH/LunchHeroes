@@ -37,24 +37,25 @@ function Navigation({ isLoaded }) {
 
   return (
 
-      <>
-          <div className="nav-div-user-logged-in">
-            <div className="nav-icon-user-logged-in">
-              <Link exact to="/">
-              <div>Logo</div>
-              </Link>
-            </div>
-            <div className="profile-create-user-logged-in">
-               <div className={ulClassName} ref={ulRef}></div>
-              {/* {isLoaded && ( */}
-                <div className="profile-button-user-logged-in">
-                  <ProfileButton user={sessionUser} />
-                </div>
-              {/* )} */}
-            </div>
+    <>
+      <div className="nav-div-user-logged-in">
+        <div className="nav-icon-user-logged-in">
+          <Link exact to="/">
+            <img className="responsive-logo" alt="Here the Basel Hack Logo is displayed" src="/Logo.svg" />
+            <img className="responsive-logo" alt="Here the Basel Hack Logo is displayed" src="/burger_wink.svg" />
+          </Link>
+        </div>
+        <div className="profile-create-user-logged-in">
+          <div className={ulClassName} ref={ulRef}></div>
+          {/* {isLoaded && ( */}
+          <div className="profile-button-user-logged-in">
+            <ProfileButton user={sessionUser} />
           </div>
-          <span className="divider"></span>
-        </>
+          {/* )} */}
+        </div>
+      </div>
+      <span className="divider"></span>
+    </>
   );
 }
 

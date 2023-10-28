@@ -23,6 +23,11 @@
     height: 54px !important;
   }
 
+  .responsive-logo {
+    max-height: 54px ; /* this ensures the image scales down if it's too wide for its container */
+    width: auto; /* this maintains the aspect ratio of the image while scaling */
+}
+
   .user-dropdown-menu > button{
     background: none;
     border: none;
