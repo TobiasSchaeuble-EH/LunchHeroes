@@ -1,8 +1,11 @@
-import logo from './logo.svg';
 import './App.css';
 import Login from './Components/Login';  // import the Login component
+import {useSelector} from 'react-redux';  // import useSelector from react-redux
+import { Route, Navigate, Routes } from 'react-router-dom';  // import Route and Navigate from react-router-dom
 
 function App() {
+  let user;
+  // const user = useSelector(state => state.session.user);
   return (
     <div className="App">
       <header className="App-header">
@@ -10,7 +13,7 @@ function App() {
         {user ? (
           //routes that will be available ONLY when user is logged in
           //add additional routes here
-          <Route element={<Home />} path="/home" />
+          <Route element={<Login />} path="/home" />
         ) : (
           //will redirect to '/' from any url if no user is logged in
           //do not add additional routes here
