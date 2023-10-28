@@ -7,8 +7,6 @@ function App() {
   let user;
   // const user = useSelector(state => state.session.user);
   return (
-    <div className="App">
-      <header className="App-header">
       <Routes>
         {user ? (
           //routes that will be available ONLY when user is logged in
@@ -22,9 +20,7 @@ function App() {
         //login form will always be available //any route added here will always
         be available
         <Route element={<Login />} path="/" />
-      </Routes>
-      </header>
-    </div>
+     </Routes>
   );
 }
 
