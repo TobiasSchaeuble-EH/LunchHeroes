@@ -29,7 +29,7 @@ function Profile(props) {
         <div className="profile-detail">
           <strong>Department:</strong> {props.department}
         </div>
-        <div className="profile-detail">
+        {/* <div className="profile-detail">
           <strong>Group Size:</strong>
           <input 
             type="range" 
@@ -47,7 +47,7 @@ function Profile(props) {
                 <option key={index} value={slot}>{slot}</option>
             ))}
           </select>
-        </div>
+        </div> */}
         <div className="profile-interests">
           <strong>Interests:</strong>
           <ul>

@@ -68,7 +68,7 @@ function App() {
         <Route element={
           <Wrapper
           />
-        } path="/Profile" />
+        } path="/" />
          {user ? (
           //routes that will be available ONLY when user is logged in
           //add additional routes here
