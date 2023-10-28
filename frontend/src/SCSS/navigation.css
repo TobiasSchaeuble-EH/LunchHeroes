@@ -6,9 +6,9 @@
     box-shadow: 0px 0px 20px lightgrey;
     background-color: white;
     width: 6em;
-    padding-right: 25px;
+    /* padding-right: 25px;
     padding-top: 10px;
-    padding-bottom: 10px;
+    padding-bottom: 10px; */
   }
 
   .hidden {
@@ -35,6 +35,7 @@
     cursor: pointer;
     display: flex;
     flex-direction: column;
+
   }
 
   .drop-down-sign-out{
@@ -123,14 +124,14 @@
   @media only screen and (max-width: 600px) {
     .profile-dropdown {
       position: absolute;
-      left: 65%;
-      top: 5%;
+      left: 60%;
+      top: 10%;
       border: 1px solid lightgrey;
       box-shadow: 0px 0px 20px lightgrey;
       background-color: white;
       width: 5em;
-      padding-top: 10px;
-      padding-bottom: 10px;
+      /* padding-top: 10px;
+      padding-bottom: 10px; */
     }
     .drop-down-sign-out {
       margin-top: 10px;

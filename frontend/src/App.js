@@ -72,12 +72,12 @@ function App() {
   return (
     <>
 
-    <button onClick={async () => {
+    {/* <button onClick={async () => {
 const {data} = await supabase.from('users').select('*, companies(*)')
 
 console.log(data)
 
-    }}>Test</button>
+    }}>Test</button> */}
       <Navigation /*isLoaded={isLoaded}*/ />
       <Routes>
         <Route element={
@@ -93,7 +93,7 @@ console.log(data)
           //do not add additional routes here
           <Route path="*" element={<Navigate to="/" replace />} />
         )}
-        <Route element={<Login />} path="/" /> 
+        <Route element={<Login />} path="/" />
       </Routes>
     </>
   );
