@@ -18,3 +18,15 @@ async def get_encoded_data(time_slot: int, location: str, data):
     #one_hot_encoded_df.to_dict(orient='records') 
     
     #return one_hot_encoded_df
+
+
+def parse_user_id_tolist(test_data):
+    data = json.loads(test_data)
+
+    # Extract the id values into a python list
+    ids = [x['id'] for x in data]
+
+    # Convert the python list to a numpy array
+    numpy_array = np.array(ids).tolist()
+
+    return numpy_array
