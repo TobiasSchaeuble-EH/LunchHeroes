@@ -13,8 +13,9 @@ app = FastAPI()
 
 @app.get("/")
 def read_root():
+    today = datetime.today().date()
     data = supabase_client.table("category").select("*").execute()
-    return {"Hello": "World", "data" : data}
+    return {"Hello": "World", "data" : today}
 
 @app.get("/users")
 def load_all_users():
@@ -26,18 +27,18 @@ def load_current_user(userId):
     currentUser = getUserWithId(userId)
     return { "currentUser" : currentUser}
 
-@app.get("/button_trigger/{userId}")
-def load_current_user(userId: str):
+@app.get("/button_trigger/{userId}/{time_slot}")
+def load_current_user(userId: str, time_slot: int):
     userData = getUserWithId(userId)
     companyId = userData.data["company"]["id"]
     age_rangeId = userData.data["age_range"]["id"]
-    time_rangeId = 1    
+    time_rangeId = time_slot
     today = datetime.today().date()
 
     #python try catch
     data = ""
     try:
-        data = supabase_client.table("query_waiting").insert([{"user": userId, "date": '10-27-2023', "company" :companyId , "age_range":age_rangeId, "time_range":time_rangeId, }]).execute()
+        data = supabase_client.table("query_waiting").insert([{"user": userId, "date": today, "company" :companyId , "age_range":age_rangeId, "time_range":time_rangeId, }]).execute()
 
     except(Exception):
         print("error")
@@ -51,7 +52,14 @@ def load_current_user(userId: str):
         print(len(item))
         for indexUsers, user in enumerate(item):
             print(user)
-            supabase_client.table("meetings").insert([{ "id":index , "time_slot" :time_rangeId, "location" :companyId, "status": 0, "user":user}]).execute()
+            data = ""
+            try:
+                data = supabase_client.table("meetings").insert([{ "id":index , "date": today, "time_slot" :time_rangeId, "location" :companyId, "status": 0, "user":user}]).execute()
+
+            except(Exception):
+                print("error")
+
+            print(data)
 
     return { "currentUser" : userData, "query": queryList, "test": test}
 
