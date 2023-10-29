@@ -1,9 +1,10 @@
  
 
 
+from datetime import datetime
 from fastapi.encoders import jsonable_encoder
 from src.lunchheros.db.dbFetcher import filter_data
-from src.routes.users.userFunctions import getAllQueryListData, getAllUsers, getUserWithId
+from src.routes.users.userFunctions import get_meeting_data, getAllQueryListData, getAllUsers, getUserWithId
 from fastapi import FastAPI
 from supabase_client import supabase_client
 
@@ -27,13 +28,34 @@ def load_current_user(userId):
 
 @app.get("/button_trigger/{userId}")
 def load_current_user(userId: str):
-    
     userData = getUserWithId(userId)
-    queryList = getAllQueryListData() [1]
+    companyId = userData.data["company"]["id"]
+    age_rangeId = userData.data["age_range"]["id"]
+    time_rangeId = 1    
+    today = datetime.today().date()
+
+    #python try catch
+    data = ""
+    try:
+        data = supabase_client.table("query_waiting").insert([{"user": userId, "date": '10-27-2023', "company" :companyId , "age_range":age_rangeId, "time_range":time_rangeId, }]).execute()
+
+    except(Exception):
+        print("error")
+    
+     
+    queryList = getAllQueryListData()[1]
 
     test = filter_data(queryList)
-    #print(f"queryList, {queryList}")
+
+    for index, item in enumerate(test):
+        print(len(item))
+        for indexUsers, user in enumerate(item):
+            print(user)
+            supabase_client.table("meetings").insert([{ "id":index , "time_slot" :time_rangeId, "location" :companyId, "status": 0, "user":user}]).execute()
 
     return { "currentUser" : userData, "query": queryList, "test": test}
 
- 
+@app.get("/get_meeting_data/{userId}")
+def get_meeting_data_main(userId: str):
+    data, count = get_meeting_data(userId)
+    return { "data" : data, "count": count}

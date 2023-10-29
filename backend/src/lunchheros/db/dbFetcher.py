@@ -38,23 +38,39 @@ def _randomize_groups(group_size: int, users: list[str]) -> list[list]:
     # Shuffle the users randomly
     random.shuffle(users)
 
+    print(f"users: {users}")
+    print(f"len(users): {len(users)}")
+
+    if len(users) < group_size:
+        return [users]
+
     # Calculate the number of groups needed
     num_groups = len(users) // group_size
+
+    print(f"num_groups: {num_groups}")
 
     # Calculate the number of users that will be left alone
     remaining_users = len(users) % group_size
 
-    #print(f"remaining_users: {remaining_users}")
+    print(f"remaining_users: {remaining_users}")
 
     # Create the groups
     groups = []
     for i in range(num_groups):
         group = users[i * group_size : (i + 1) * group_size]
         groups.append(group)
+        print(f"groups: {groups}")
+
+    # get the number of groups
+    num_groups = len(groups)
+
+    # Distribute the remaining users across the groups
+    #for i in range(remaining_users):
+    #    groups[i].append(users[num_groups * group_size + i])
 
     # Distribute the remaining users across the groups
     for i in range(remaining_users):
-        groups[i].append(users[num_groups * group_size + i])
+        groups[i % num_groups].append(users[num_groups * group_size + i])
 
     return groups
 
