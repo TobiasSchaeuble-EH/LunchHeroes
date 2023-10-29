@@ -39,7 +39,7 @@ def _randomize_groups(group_size: int, users: list[str]) -> list[list]:
     return groups
 
 
-def match(userids):
+def matching(userids):
 
     # convert userids to list
     userids = parse_user_id_tolist(userids)
