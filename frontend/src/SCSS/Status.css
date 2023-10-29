@@ -5,13 +5,15 @@
   background-color: #e6ecf0;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  text-align: left;
   transition: transform 0.3s;
   display: flex;
   flex-direction: column; /* To stack children vertically */
   justify-content: center;
   align-items: center;
   height: auto; /* Removed fixed height for auto-adjustment */
+  max-width: 60%;
+  margin: 0 auto;
 }
 
 .status-container:hover {
@@ -25,7 +27,7 @@
 }
 
 .not-scheduled {
-  color: #e94c0a;
+  color: #a8005c;
   font-weight: 600;
 }
 
