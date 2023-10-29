@@ -1,79 +1,184 @@
 .scheduling-container {
-    width: 100%;
-    height: 250px;
-    margin-top: 50px;
-    margin-bottom: 150px;
+    width: 80%; /* Adjusted for better desktop presentation */
+    max-width: 1200px; /* Added for limiting width on very large screens */
+    margin: 50px auto; /* Adjusted to center the container horizontally */
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-
 .scheduling-header {
-    font-size: 35px;
-    margin-bottom: 50px;
+    color: #007CAA;
+    font-size: x-large;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-bottom: 3%;
 }
-
-
 .time-dropdown-guests-slider {
     display: flex;
-    gap: 30px;
+    gap: 2em;
     align-items: center;
-    padding: 20px;
-    background-color: #f6f6f6;
-    border-radius: 8px;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    padding: 1em;
+    /* background-color: #F6F6F6; */
+    /* border-radius: 8px; */
+    /* box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1); */
+    margin-bottom: 3%;
+    justify-content: space-between;
+    width: 60%;
 }
-
-.time-dropdown, .guests-slider {
+.time-dropdown,
+.guests-slider {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
-
-.time-dropdown strong, .guests-slider strong {
+.time-dropdown strong,
+.guests-slider strong {
     font-size: 20px;
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
     color: #333;
 }
-
 select {
     font-size: 18px;
     padding: 10px 15px;
     border-radius: 8px;
     border: 1px solid #ccc;
-    appearance: none; /* This removes the default OS styling */
+    appearance: none;
     background-color: #fff;
     background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 140 140" width="16" height="16" xmlns="http://www.w3.org/2000/svg"><path d="M35,45l70,70 M105,45L35,115" stroke="#333" stroke-width="10" fill="none"/></svg>');
     background-repeat: no-repeat;
     background-position: right 15px center;
     cursor: pointer;
 }
-
-input[type="range"] {
+input[type='range'] {
     width: 100%;
     cursor: pointer;
 }
-
-select, input[type="range"] {
-    margin-left: 10px; /* added this line */
+select,
+input[type='range'] {
+    margin-left: 10px;
 }
-
-
 .slider {
     display: flex;
     align-items: center;
     gap: 20px;
 }
-
-
 .button-div {
     width: 100%;
     display: flex;
     justify-content: center;
-    gap: 50px
+    gap: 50px;
+    flex-wrap: wrap;
 }
-.button-div > button{
-    width: 250px;
-    height: 150px;
-    margin: 50px
+.button-div > button {
+    display: block;
+    /* Added for centering button */
+    width: 100%;
+    height: 10em;
+    /* Make the height scalable for different screens */
+    margin: 0 auto;
+    /* Center the button */
+    padding: 0.5em 1em;
+    /* Make the button more clickable */
+    border: 1px solid rgba(80, 102, 113, 0.75);
+    border-radius: 10px;
+    background: #fff;
+    color: #007CAA;
+    text-align: center;
+    font-size: 1rem;
+    /* Make the font size scalable */
+    transition: all 0.3s ease;
+    /* Added for smooth hover and focus transitions */
+}
+.button-div > button:hover,
+.button-div > button:focus {
+    background: #007CAA;
+    /* Change background colour when hovered or focused */
+    color: #fff;
+    /* Change text color when hovered or focused */
+    border: 1px solid #007CAA;
+    /* Change border color when hovered or focused */
+}
+@media (max-width: 768px) {
+    .scheduling-container {
+        width: 100%; /* Adjusted for better mobile presentation */
+        padding-bottom: 20px;
+    }
+    .scheduling-header {
+        text-align: center;
+    }
+    .time-dropdown-guests-slider {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .button-div {
+        flex-direction: column;
+        align-items: center;
+    }
+    .button-div > button {
+        width: 100%;
+        height: auto;
+        padding: 15px;
+        margin: 10px 0;
+    }
+}
+.actions-container {
+    display: flex;
+    justify-content: space-around; /* Adjusted for better spacing */
+    width: 100%;
+    margin-top: 20px;
+}
+.quick-actions,
+.advanced-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 45%; /* Adjusted to fit better side by side */
+}
+.quick-actions p,
+.advanced-actions p {
+    font-size: auto;
+    color: #777;
+    text-align: center;
+}
+.view-all-container {
+    margin-top: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.view-all-button {
+    display: block;
+    /* Added for centering button */
+    width: 95%;
+    height: 10em;
+    /* Make the height scalable for different screens */
+    margin: 0 auto;
+    /* Center the button */
+    padding: 0.5em 1em;
+    /* Make the button more clickable */
+    border: 1px solid rgba(80, 102, 113, 0.75);
+    border-radius: 10px;
+    background: #fff;
+    color: #007CAA;
+    text-align: center;
+    font-size: 1rem;
+    /* Make the font size scalable */
+    transition: all 0.3s ease;
+    /* Added for smooth hover and focus transitions */
+}
+.view-all-button:hover,
+.view-all-button:focus {
+    background: #007CAA;
+    /* Change background colour when hovered or focused */
+    color: #fff;
+    /* Change text color when hovered or focused */
+    border: 1px solid #007CAA;
+    /* Change border color when hovered or focused */
+}
+.randomize-button {
+    height: 100px !important;
+    width: 250px !important;
+    font-size: 25px;
+    margin-top: 25px;
 }

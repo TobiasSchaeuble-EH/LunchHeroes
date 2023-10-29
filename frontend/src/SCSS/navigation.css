@@ -1,138 +1,137 @@
 .profile-dropdown {
+  position: absolute;
+  right: 10px;
+  /* Changing left% to 'right' for better responsiveness and accessibility */
+  top: auto;
+  /* May need to adjust based on surrounding containers */
+  border: 1px solid #D3D3D3;
+  /* Replacing named colors with hex for precision */
+  box-shadow: 0px 0px 10px #D3D3D3;
+  background-color: #FFFFFF;
+  width: auto;
+  /* Making the drop-down take full width on smaller screens */
+  padding: 10px 10px;
+  /* Consolidating paddings into one line */
+  max-width: 200px;
+  /* Giving a max-width to avoid overly-stretched dropdowns on larger screens */
+  transition: all 0.3s ease-in-out;
+  /* Optional: Added transition for smoother display changes */
+  border: 1px solid rgba(80, 102, 113, 0.75);
+  border-radius: 10px;
+}
+.hidden {
+  display: none;
+}
+.nav-icon > img {
+  height: 10px;
+}
+.logo-on-nav {
+  height: 54px !important;
+}
+.responsive-logo {
+  max-height: 54px; /* this ensures the image scales down if it's too wide for its container */
+  width: auto; /* this maintains the aspect ratio of the image while scaling */
+}
+.user-dropdown-menu > button {
+  background: none;
+  border: none;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+.drop-down-sign-out {
+  color: #E94C0A;
+}
+.nav-div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0px;
+  background-color: white;
+  border-bottom: black 1px solid;
+  width: 100%;
+}
+.nav-blank {
+  width: 55%;
+}
+.rest-of-nav {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 12px;
+  max-height: 15px;
+}
+.nav-login > button {
+  background: none;
+  color: inherit;
+  border: none;
+  font-size: 12px;
+  cursor: pointer;
+}
+.nav-sign-up > button {
+  background: black;
+  color: white;
+  border-radius: 15px;
+  height: 25px;
+  cursor: pointer;
+}
+.nav-div-user-logged-in {
+  padding: 0px 10px 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 100px;
+  border-bottom: rgb(232, 232, 232) solid 0.5px;
+}
+.nav-blank-user-logged-in {
+  width: 900px;
+}
+.drop-down-profile-settings {
+  color: black;
+}
+.profile-create-user-logged-in {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+}
+.user-profile-dropdown-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  gap: 2px;
+}
+.user-profile-dropdown-button:active,
+.user-profile-dropdown-button:focus,
+.user-profile-dropdown-button:hover {
+  /* Added hover here */
+  outline: none;
+  box-shadow: none;
+  /* Optionally remove or change the box-shadow here to avoid the blue glow on hover */
+  background-color: transparent;
+  /* Added this line to ensure no background color on hover */
+}
+.profile-button-picture {
+  height: 50px !important;
+  color: lightgray;
+}
+@media only screen and (max-width: 600px) {
+  .profile-dropdown {
     position: absolute;
-    left: 87%;
-    top: 3%;
+    left: 60%;
+    top: 10%;
     border: 1px solid lightgrey;
     box-shadow: 0px 0px 20px lightgrey;
     background-color: white;
-    width: 6em;
-    padding-right: 25px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    width: 5em;
+    /* padding-top: 10px;
+    padding-bottom: 10px; */
   }
-
-  .hidden {
-    display: none;
-  }
-
-  .nav-icon > img{
-    height: 10px;
-  }
-
-  .logo-on-nav {
-    height: 54px !important;
-  }
-
-  .responsive-logo {
-    max-height: 54px ; /* this ensures the image scales down if it's too wide for its container */
-    width: auto; /* this maintains the aspect ratio of the image while scaling */
-}
-
-  .user-dropdown-menu > button{
-    background: none;
-    border: none;
-    font-size: 12px;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .drop-down-sign-out{
-    color: red;
-  }
-
-  .nav-div {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    top: 0px;
-    background-color: white;
-    border-bottom: black 1px solid;
-    width:100%
-  }
-
-
-  .nav-blank {
-    width: 55%
-  }
-
-  .rest-of-nav {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    font-size: 12px;
-    max-height: 15px
-  }
-
-  .nav-login > button{
-    background: none;
-    color: inherit;
-    border: none;
-    font-size: 12px;
-    cursor: pointer;
-  }
-  .nav-sign-up > button {
-    background: black;
-    color: white;
-    border-radius: 15px;
-    height: 25px;
-    cursor: pointer;
-  }
-
-  .nav-div-user-logged-in {
-    padding: 0px 10px 5px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    height: 100px;
-    border-bottom: rgb(232, 232, 232) solid 0.5px;
-  }
-
-
-  .nav-blank-user-logged-in{
-    width: 900px
-  }
-
-  .drop-down-profile-settings{
-    color: black;
-  }
-  .profile-create-user-logged-in {
-    display: flex;
-    flex-direction: row;
-    gap: 15px;
-  }
-
-
-  .user-profile-dropdown-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    gap: 2px
-  }
-
-  .profile-button-picture {
-    height: 50px !important;
-    color: lightgray
-  }
-
-
-  @media only screen and (max-width: 600px) {
-    .profile-dropdown {
-      position: absolute;
-      left: 65%;
-      top: 5%;
-      border: 1px solid lightgrey;
-      box-shadow: 0px 0px 20px lightgrey;
-      background-color: white;
-      width: 5em;
-      padding-top: 10px;
-      padding-bottom: 10px;
-    }
-    .drop-down-sign-out {
+  .drop-down-sign-out {
       margin-top: 10px;
-    }
   }
+}

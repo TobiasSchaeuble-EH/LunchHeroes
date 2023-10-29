@@ -1,26 +1,25 @@
 .profile-container {
-    border: 1px solid #e0e0e0;
-    padding: 20px;
-    border-radius: 10px;
-    max-width: 400px;
-    margin: 20px auto;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-  }
-  
-  .profile-picture {
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    margin-bottom: 15px;
-  }
-  
-  .profile-detail, .profile-interests {
-    margin: 10px 0;
-  }
-  
-  .profile-interests ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
+  border: 1px solid #E0E0E0;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 400px;
+  margin: 20px auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+.profile-container h2 {
+  color: black
+}
+.profile-picture {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  margin-bottom: 15px;
+}
+.profile-detail, .profile-interests {
+  margin: 10px 0;
+}
+.profile-interests ul {
+  list-style-type: none;
+  padding: 0;
+}
