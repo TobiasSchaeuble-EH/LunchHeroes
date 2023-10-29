@@ -1,9 +1,13 @@
 import React from 'react';
 import '../SCSS/scheduling.css';
-import Status from './Status';
+<<<<<<< HEAD
 import {useDispatch} from 'react-redux';
 import {useSelector} from 'react-redux';  // import useSelector from react-redux
 import { addUserToScheduling } from '../store/scheduling';
+=======
+import Status from './Status';
+>>>>>>> deploy
+
 const Scheduling = (props) => {
     const dispatch = useDispatch()
     const user = useSelector((state) => state.session.user);
