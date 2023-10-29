@@ -14,7 +14,7 @@ def matching(userids):
     # convert userids to list
     userids = parse_user_id_tolist(userids)
     # group size
-    groupsize = 5
+    groupsize = 4
     # randomize the groups
     groups = _randomize_groups(groupsize, userids)
     # return the groups
@@ -43,6 +43,8 @@ def _randomize_groups(group_size: int, users: list[str]) -> list[list]:
 
     # Calculate the number of users that will be left alone
     remaining_users = len(users) % group_size
+
+    #print(f"remaining_users: {remaining_users}")
 
     # Create the groups
     groups = []
