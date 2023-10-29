@@ -1,10 +1,12 @@
+from lunchheros import match
 import numpy as np
 import pandas as pd
 import json
 import os 
 
-async def get_encoded_data(time_slot: int, location: str, data):
+async def filter_data(data):
     print("get_encoded_data")
+    return match(data)
     # Transform data
     #print(f"Data {time_slot} {location} {data}")
     #df = pd.DataFrame(data)
