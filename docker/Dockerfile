@@ -11,7 +11,7 @@ COPY backend/pyproject.toml backend/poetry.lock /app/
 
 # Install dependencies without creating a virtual environment
 RUN poetry config virtualenvs.create false \
-    && poetry install --only main --no-interaction --no-ansi
+    && poetry install --no-dev --no-interaction --no-ansi
 
 # Install Gunicorn
 RUN pip install gunicorn
