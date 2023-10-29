@@ -5,7 +5,7 @@ const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
 
 
-const setUser = (user) => ({
+export const setUser = (user) => ({
 	type: SET_USER,
 	payload: user,
 });
@@ -44,7 +44,7 @@ export const login = (email, password) => async (dispatch) => {
 
 	if (response.data.user) {
 		const data = response.data
-		console.log('DATA', data)
+		localStorage.setItem('user', data.user)
 		dispatch(setUser(data));
 		return data;
 	} else if (response.error) {
@@ -57,13 +57,9 @@ export const login = (email, password) => async (dispatch) => {
 };
 
 export const logout = () => async (dispatch) => {
-	const response = await fetch("/api/auth/logout", {
-		headers: {
-			"Content-Type": "application/json",
-		},
-	});
+	const response = await supabase.auth.signOut()
 
-	if (response.ok) {
+	if (!response.error) {
 		dispatch(removeUser());
 	}
 };

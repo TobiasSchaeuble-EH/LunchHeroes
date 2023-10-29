@@ -3,9 +3,6 @@ import pandas as pd
 import json
 import os 
 
-                
-
- 
 async def get_encoded_data(time_slot: int, location: str, data):
     print("get_encoded_data")
     # Transform data
@@ -18,7 +15,6 @@ async def get_encoded_data(time_slot: int, location: str, data):
     #one_hot_encoded_df.to_dict(orient='records') 
     
     #return one_hot_encoded_df
-
 
 def parse_user_id_tolist(test_data):
     data = json.loads(test_data)

@@ -176,6 +176,7 @@ input[type='range'] {
     border: 1px solid #007CAA;
     /* Change border color when hovered or focused */
 }
+
 .randomize-button {
     height: 100px !important;
     width: 250px !important;
