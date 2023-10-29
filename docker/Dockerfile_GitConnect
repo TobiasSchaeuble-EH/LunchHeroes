@@ -3,35 +3,36 @@ FROM python:3.9-slim as backend
 
 WORKDIR /app
 
-# Install Poetry
-RUN pip install poetry
+# Install git and Poetry
+RUN apt-get update && apt-get install -y git \
+    && pip install poetry
 
-# Copy the Poetry configuration and lock files
-COPY backend/pyproject.toml backend/poetry.lock /app/
+# Clone the repository from GitHub
+RUN git clone https://github.com/your-username/your-repo.git .
+
+# Change to the backend directory
+WORKDIR /app/backend
 
 # Install dependencies without creating a virtual environment
 RUN poetry config virtualenvs.create false \
-    && poetry install --only main --no-interaction --no-ansi
-
-# Install Gunicorn
-RUN pip install gunicorn
-
-# Copy the backend source code into the image
-COPY backend /app/
+    && poetry install --no-dev --no-interaction --no-ansi
 
 # --- Frontend Build Stage ---
 FROM node:14 as frontend
 
 WORKDIR /app
 
-# Copy the frontend package configuration files
-COPY frontend/package*.json /app/
+# Install git
+RUN apt-get update && apt-get install -y git
+
+# Clone the repository from GitHub
+RUN git clone https://github.com/TobiasSchaeuble-EH/LunchHeroes.git .
+
+# Change to the frontend directory
+WORKDIR /app/frontend
 
 # Install dependencies
 RUN npm install
-
-# Copy the frontend source code into the image
-COPY frontend /app/
 
 # Build the frontend
 RUN npm run build
@@ -40,10 +41,10 @@ RUN npm run build
 FROM nginx:alpine
 
 # Copy the built frontend files to the Nginx server
-COPY --from=frontend /app/build /usr/share/nginx/html
+COPY --from=frontend /app/frontend/build /usr/share/nginx/html
 
 # Copy the backend app to a directory served by Gunicorn
-COPY --from=backend /app /app
+COPY --from=backend /app/backend /app
 
 # Set up Gunicorn to serve the backend app
 COPY docker/gunicorn.conf /etc/gunicorn/gunicorn.conf
