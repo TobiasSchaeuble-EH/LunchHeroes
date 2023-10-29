@@ -1,4 +1,4 @@
-from lunchheros.match._randomize import _randomize_groups
+from lunchheros.match._randomize import _randomize_groups, matching
 
 import json
 import numpy as np
@@ -38,3 +38,12 @@ def test_randomize_with_real():
     # randomize groups
     groups = _randomize_groups(group_size, numpy_array.tolist())
     print(groups)
+
+
+def test_matching():
+
+    grouping = matching(test_data)
+
+    print(grouping)
+    return grouping
+    
