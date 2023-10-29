@@ -1,25 +1,70 @@
-from lunchheros import match
+
 import numpy as np
 import pandas as pd
+import random
 import json
 import os 
 
-async def filter_data(data):
+def filter_data(data):
     print("get_encoded_data")
-    return match(data)
-    # Transform data
-    #print(f"Data {time_slot} {location} {data}")
-    #df = pd.DataFrame(data)
+    return matching(data)
+    
+def matching(userids):
 
-    
-    # One-hot encode data
-    #one_hot_encoded_df = pd.get_dummies(df, columns=['WIP'])  # wip - replace with actual column names
-    #one_hot_encoded_df.to_dict(orient='records') 
-    
-    #return one_hot_encoded_df
+    # convert userids to list
+    userids = parse_user_id_tolist(userids)
+    # group size
+    groupsize = 5
+    # randomize the groups
+    groups = _randomize_groups(groupsize, userids)
+    # return the groups
+    return groups
+
+
+def _randomize_groups(group_size: int, users: list[str]) -> list[list]:
+    """Randomize the groups of users.
+
+      Makes groups of size ``group_size`` from the list of users ``users``.
+      If the number of users is not a multiple of ``group_size``, the remaining
+      users will be distributed randomly across the groups.
+
+    Args:
+        group_size: size of the groups
+        users: list of users id
+    Returns:
+        A list of lists, each representing a group of users
+    """
+
+    # Shuffle the users randomly
+    random.shuffle(users)
+
+    # Calculate the number of groups needed
+    num_groups = len(users) // group_size
+
+    # Calculate the number of users that will be left alone
+    remaining_users = len(users) % group_size
+
+    # Create the groups
+    groups = []
+    for i in range(num_groups):
+        group = users[i * group_size : (i + 1) * group_size]
+        groups.append(group)
+
+    # Distribute the remaining users across the groups
+    for i in range(remaining_users):
+        groups[i].append(users[num_groups * group_size + i])
+
+    return groups
+
 
 def parse_user_id_tolist(test_data):
-    data = json.loads(test_data)
+    
+   
+    parsed_string = str(test_data)
+    
+    parsed_string = parsed_string.replace("'", '"')
+
+    data = json.loads(parsed_string)
 
     # Extract the id values into a python list
     ids = [x['id'] for x in data]
