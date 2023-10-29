@@ -20,13 +20,11 @@ function App() {
   // }, [dispatch]);
 
   const props = {
-    name: "John Doe",
-    email: "johndoe@example.com",
-    location: "New York, USA",
-    department: "Engineering",
+    name: "Test Example",
+    email: "test1@example.de",
+    location: "Basel",
+    department: "LunchHeroes",
     groupSize: 2,
-    // profilePicture: "./profile.png",
-    timeSlot: "10:00",
     interests: ["Coding", "Traveling", "Reading"],
     isScheduled: true
   };

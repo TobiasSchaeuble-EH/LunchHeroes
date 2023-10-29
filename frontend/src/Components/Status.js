@@ -9,7 +9,7 @@ function Status(props) {
       {props.isScheduled ? (
         <p className="scheduled">Lunch meeting is scheduled!</p>
       ) : (
-        <p className="not-scheduled">Lunch meeting is not scheduled yet.</p>
+        <p className="not-scheduled">Request for the Lunch meeting is pending.</p>
       )}
     </div>
   );
