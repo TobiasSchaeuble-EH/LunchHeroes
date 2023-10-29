@@ -20,13 +20,12 @@ function App() {
   // }, [dispatch]);
 
   const props = {
-    name: "John Doe",
-    email: "johndoe@example.com",
-    location: "New York, USA",
-    department: "Engineering",
+    name: "Profile",
+    email: "test1@example.de",
+    location: "Basel",
+    department: "LunchHeroes",
     groupSize: 2,
-    // profilePicture: "./profile.png",
-    timeSlot: "10:00",
+    timeSlot: "12:00",
     interests: ["Coding", "Traveling", "Reading"],
     isScheduled: true
   };
@@ -105,6 +104,11 @@ function App() {
           </>
         )}
       </Routes>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
     </>
   );
 }

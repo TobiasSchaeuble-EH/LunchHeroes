@@ -1,28 +1,80 @@
 .status-container {
   margin-top: 20px;
   padding: 20px;
-  border: 2px solid #8f2a2c;   /* Border color from .winter-gray-3 */
-  background-color: #e6ecf0;  /* Background color from .winter-gray-1 */
+  border: 2px solid #3498db; 
+  background-color: #e6ecf0;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adding a subtle shadow */
-  text-align: center;
-  transition: transform 0.3s; /* For a slight scaling effect on hover */
-  display: flex;  /* Added flexbox to center content */
-  justify-content: center;  /* Center content horizontally */
-  align-items: center;  /* Center content vertically */
-  height: 100px;  /* Added a fixed height for consistent appearance */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  transition: transform 0.3s;
+  display: flex;
+  flex-direction: column; /* To stack children vertically */
+  justify-content: center;
+  align-items: center;
+  height: auto; /* Removed fixed height for auto-adjustment */
+  max-width: 60%;
+  margin: 0 auto;
 }
 
 .status-container:hover {
-  transform: scale(1.02); /* Slight scaling effect on hover */
+  transform: scale(1.02);
 }
 
 .scheduled {
-  color: #a8005c;  /* Text color from .magenta-2 */
-  font-weight: 600; /* Making the text bold */
+  color: #3498db;
+  font-weight: 600;
+  margin-bottom: 10px; /* Added margin to space out from the details */
 }
 
 .not-scheduled {
-  color: #e94c0a;  /* Text color from .red-orange-2 */
-  font-weight: 600; /* Making the text bold */
+  color: #3498db;
+  font-weight: 600;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.detail-item {
+  font-size: 0.9em;
+  color: #333;
+}
+
+.detail-item strong {
+  color: #3498db;
+  font-size: 1.1em;
+}
+
+.status-container:hover .detail-item strong {
+  color: #a8005c;
+}
+
+
+
+.loading-bar-container {
+  width: 100%;
+  height: 20px;
+  background-color: #e0e0e0; /* Light gray */
+  border-radius: 10px;
+  overflow: hidden; /* Makes sure the inner bar doesn't overflow */
+  position: relative; /* Allows for absolute positioning of inner elements */
+}
+
+.loading-bar-fill {
+  height: 100%;
+  width: 0%; /* Starts off empty */
+  background-color: #3498db; /* Blue */
+  border-radius: 10px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  animation: loadingAnimation 10s infinite; /* 2 seconds duration for a simple animation */
+}
+
+@keyframes loadingAnimation {
+  0% { width: 0%; }
+  50% { width: 100%; }
+  100% { width: 0%; }
 }
