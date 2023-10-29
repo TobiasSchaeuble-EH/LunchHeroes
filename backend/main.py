@@ -1,8 +1,8 @@
  
-import lunchheros
+
 
 from fastapi.encoders import jsonable_encoder
-from src.lunchheros.db.dbFetcher import get_encoded_data
+from src.lunchheros.db.dbFetcher import filter_data, get_encoded_data
 from src.routes.users.userFunctions import getAllQueryListData, getAllUsers, getUserWithId
 from fastapi import FastAPI
 from supabase_client import supabase_client
@@ -30,6 +30,6 @@ def load_current_user(userId: str):
     userData = getUserWithId(userId)
     queryList = getAllQueryListData() 
 
-    test = lunchheros.match.match(userData)
+    test = filter_data(queryList)
 
     return { "currentUser" : userData, "query": queryList}
