@@ -11,6 +11,7 @@
   justify-content: center;  /* Center content horizontally */
   align-items: center;  /* Center content vertically */
   height: 100px;  /* Added a fixed height for consistent appearance */
+  
 }
 
 .status-container:hover {
