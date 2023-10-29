@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 // import logo from './logo.svg';
 import './App.css';
 import Login from './Components/Login';
@@ -7,11 +7,9 @@ import Navigation from './Components/Navigation';
 import Profile from './Components/Profile';
 import Status from './Components/Status';
 import {useSelector} from 'react-redux';  // import useSelector from react-redux
-import { Route, Navigate, Routes } from 'react-router-dom';  // import Route and Navigate from react-router-dom
+import { Route, Navigate, Routes, useNavigate } from 'react-router-dom';  // import Route and Navigate from react-router-dom
 import Scheduling from './Components/Scheduling';
-import{ supabase } from './supabaseclient';
-
-
+// import{ supabase } from './supabaseclient';
 
 function App() {
 
@@ -47,6 +45,16 @@ function App() {
   console.log("LOGIN USER", user?.user?.id);
   console.log("LOGIN", user);
 
+  const RedirectToHome = () => {
+    const navigate = useNavigate();
+  
+    useEffect(() => {
+      navigate('/home');
+    }, [navigate]);
+  
+    return null; // This component does not render anything to the DOM
+  }
+
   const Wrapper = () => {
     return (
       <div>
@@ -55,17 +63,6 @@ function App() {
           timeSlot={timeSlot}
           onGroupSizeChange={handleGroupSizeChange} // Changed from props.onGroupSizeChange
           onTimeSlotChange={handleTimeSlotChange}
-        />
-        <Profile
-          name={props.name}
-          email={props.email}
-          location={props.location}
-          department={props.department}
-          groupSize={groupSize}
-          timeSlot={timeSlot}
-          interests={props.interests}
-          onGroupSizeChange={handleGroupSizeChange} // Changed from props.onGroupSizeChange
-          onTimeSlotChange={handleTimeSlotChange} // Changed from props.onTimeSlotChange
         />
         <Status isScheduled={props.isScheduled} />
         <Status isScheduled={!props.isScheduled} />
@@ -81,7 +78,23 @@ function App() {
         {user ? (
           //routes that will be available ONLY when user is logged in
           //add additional routes here
+          <>
+          <Route path="/" element={<RedirectToHome />} />
           <Route element={<Wrapper />} path="/home" />
+          <Route element={       
+          <Profile
+          name={props.name}
+          email={props.email}
+          location={props.location}
+          department={props.department}
+          groupSize={groupSize}
+          timeSlot={timeSlot}
+          interests={props.interests}
+          onGroupSizeChange={handleGroupSizeChange} // Changed from props.onGroupSizeChange
+          onTimeSlotChange={handleTimeSlotChange} // Changed from props.onTimeSlotChange
+        />
+        } path="/profile" />
+          </>
         ) : (
           // <Route element={<Profile />} path="/home" />
           //will redirect to '/' from any url if no user is logged in
