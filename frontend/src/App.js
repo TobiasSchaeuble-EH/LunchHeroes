@@ -20,7 +20,7 @@ function App() {
   // }, [dispatch]);
 
   const props = {
-    name: "Test Example",
+    name: "Profile",
     email: "test1@example.de",
     location: "Basel",
     department: "LunchHeroes",
