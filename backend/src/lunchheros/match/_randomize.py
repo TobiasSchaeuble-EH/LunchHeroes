@@ -24,6 +24,9 @@ def _randomize_groups(group_size: int, users: list[str]) -> list[list]:
     print(f"users: {users}")
     print(f"len(users): {len(users)}")
 
+    if len(users) < group_size:
+        return [users]
+
     # Calculate the number of groups needed
     num_groups = len(users) // group_size
 
