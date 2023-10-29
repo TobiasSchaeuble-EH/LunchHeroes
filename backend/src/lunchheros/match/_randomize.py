@@ -35,3 +35,6 @@ def _randomize_groups(group_size: int, users: list[str]) -> list[list]:
         groups[i].append(users[num_groups * group_size + i])
 
     return groups
+
+
+
