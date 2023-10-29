@@ -1,4 +1,5 @@
-
+ 
+import lunchheros
 
 from fastapi.encoders import jsonable_encoder
 from src.lunchheros.db.dbFetcher import get_encoded_data
@@ -28,6 +29,7 @@ def load_current_user(userId):
 def load_current_user(userId: str):
     userData = getUserWithId(userId)
     queryList = getAllQueryListData() 
-    #test =  get_encoded_data(1,1,userData)
+
+    test = lunchheros.match.match(userData)
 
     return { "currentUser" : userData, "query": queryList}
