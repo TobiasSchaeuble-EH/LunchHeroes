@@ -25,6 +25,7 @@ function App() {
     location: "Basel",
     department: "LunchHeroes",
     groupSize: 2,
+    timeSlot: "12:00",
     interests: ["Coding", "Traveling", "Reading"],
     isScheduled: true
   };
@@ -103,6 +104,11 @@ function App() {
           </>
         )}
       </Routes>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
     </>
   );
 }

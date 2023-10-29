@@ -31,7 +31,7 @@ const Scheduling = (props) => {
     const timer = setTimeout(() => {
       setMatchRequestResult(true);
       clearTimeout(timer); // Clear the timer after execution
-    }, 1000); // 10 seconds or 10,000 milliseconds
+    }, 4789); // 10 seconds or 10,000 milliseconds
   };
 
   const sendSchedulingData = () => {
@@ -42,7 +42,9 @@ const Scheduling = (props) => {
       <div className="scheduling-header scheduling-container">
         Fancy having lunch together with interesting people?
       </div>
-      {matchRequest && <Status isScheduled={
+      {matchRequest && <Status 
+      timeSlot={props.timeSlot}
+      isScheduled={
         matchRequestResult
       } />}
 
