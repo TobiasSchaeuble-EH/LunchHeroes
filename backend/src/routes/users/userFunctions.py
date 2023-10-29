@@ -10,3 +10,7 @@ def getUserWithId(userId):
 def getAllUsers():
     return  supabase_client.table("users").select(users_select).execute()
     
+
+def getAllQueryListData():
+    return  supabase_client.table("waiting_query").select(f"*, user({users_select}), time_range(*), company(*), age_range(*)").execute()
+    
