@@ -1,9 +1,13 @@
 import React from 'react';
 import '../SCSS/scheduling.css';
-import Status from './Status';
+<<<<<<< HEAD
 import {useDispatch} from 'react-redux';
 import {useSelector} from 'react-redux';  // import useSelector from react-redux
 import { addUserToScheduling } from '../store/scheduling';
+=======
+import Status from './Status';
+>>>>>>> deploy
+
 const Scheduling = (props) => {
     const dispatch = useDispatch()
     const user = useSelector((state) => state.session.user);
@@ -55,7 +59,7 @@ const Scheduling = (props) => {
                     </div>
                 </div>
                 <div className="view-all-container">
-                <button className="view-all-button" onClick={featureSoon}>Request match</button>
+                <button className="view-all-button" onClick={featureSoon}>Search match</button>
             </div>
                 {/* <div className="guests-slider">
                     <div className="slider">

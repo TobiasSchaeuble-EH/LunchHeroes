@@ -6,7 +6,6 @@ import Login from './Components/Login';
 import Navigation from './Components/Navigation';
 // import { useNavigate, useDispatch } from "react-router-dom";
 import Profile from './Components/Profile';
-import Status from './Components/Status';
 import {useSelector} from 'react-redux';  // import useSelector from react-redux
 import { Route, Navigate, Routes, useNavigate } from 'react-router-dom';  // import Route and Navigate from react-router-dom
 import Scheduling from './Components/Scheduling';
@@ -14,8 +13,6 @@ import Scheduling from './Components/Scheduling';
 function App() {
 
   const user = useSelector(state => state.session.user);
-  console.log("LOGIN USER", user?.user?.id);
-  console.log("LOGIN", user);
 
   // const [isLoaded, setIsLoaded] = useState(false);
   // useEffect(() => {
@@ -49,30 +46,31 @@ function App() {
 
   const RedirectToHome = () => {
     const navigate = useNavigate();
-  
+
     useEffect(() => {
       navigate('/home');
     }, [navigate]);
-  
+
     return null; // This component does not render anything to the DOM
   }
 
   const Wrapper = () => {
     return (
       <div>
+      <video width="100%" autoPlay loop muted className="non-clickable">
+        <source src="/Lunch.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
         <Scheduling
           groupSize={groupSize}
           timeSlot={timeSlot}
           onGroupSizeChange={handleGroupSizeChange} // Changed from props.onGroupSizeChange
           onTimeSlotChange={handleTimeSlotChange}
         />
-        <Status isScheduled={props.isScheduled} />
-        <Status isScheduled={!props.isScheduled} />
       </div>
     );
   }
 
-  console.log(user);
   return (
     <>
       <Navigation /*isLoaded={isLoaded}*/ />
@@ -83,7 +81,7 @@ function App() {
           <>
           <Route path="/" element={<RedirectToHome />} />
           <Route element={<Wrapper />} path="/home" />
-          <Route element={       
+          <Route element={
           <Profile
           name={props.name}
           email={props.email}

@@ -59,7 +59,9 @@ def matching(userids):
     # convert userids to list
     userids = parse_user_id_tolist(userids)
     # group size
+
     groupsize = 4
+
     # randomize the groups
     groups = _randomize_groups(groupsize, userids)
     # return the groups
