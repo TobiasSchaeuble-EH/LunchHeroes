@@ -2,13 +2,22 @@
 
 This Docker setup is designed to build the Docker image for the LunchHeroes application, which can then be pushed to a Docker registry and deployed on a server.
 
+# Important Links
+   - The server is hosted on [Flow Swiss](https://my.flow.swiss/).
+   - Repo is on DockerHub: [Dockerhub]https://hub.docker.com/repository/docker/lucca93/lunchheroes
+   - Link to Live App: http://app.lunchhero.ch/ or https://env-9057938.appengine.flow.ch/ 
+
 
 ## Preliminary Steps
 
 1. **Building the Docker Image**
-    To build the Docker image, navigate to the directory containing the Dockerfile and run the following command:
+    To build the Docker image, navigate to the LunchHeroes and run the following command:
     ```bash
-    docker push lucca93/lunchheroes:latest
+    docker build -t lunchheroes -f docker/Dockerfile .
+    ```
+    Build the Docker Image directly from the Git Repo.
+    ```bash
+    docker build -t lunchheroes -f docker/Dockerfile_GitConnect .
     ```
 
 2. **Pushing Docker Image:**
@@ -16,6 +25,9 @@ This Docker setup is designed to build the Docker image for the LunchHeroes appl
      ```bash
      docker push lucca93/lunchheroes:latest
      ```
+3. **Redeploy Container in FlowEngine**
+  - Application Server
+  - Redeploy Container
 
 
 **Server Hosting:**
