@@ -16,11 +16,11 @@ const Scheduling = (props) => {
 };
 
   return (
-    <div className="scheduling-container">
-      <div className="scheduling-header">
-        Fancy having lunch together with interesting people?
-      </div>
-      <div className="time-dropdown-guests-slider">
+<div className="scheduling-container">
+  <div className="scheduling-header">
+    Fancy having lunch together with interesting people?
+  </div>
+  <div className="time-dropdown-guests-slider">
         <div className="time-dropdown">
           <div>
             <strong>Time Slot:</strong>
@@ -49,13 +49,21 @@ const Scheduling = (props) => {
             {props.groupSize} Persons
           </div>
         </div>
-      </div>
-      <div className="button-div">
-        <button className="randomize-button">Randomize</button>
-        <button className="customize-button">Customize</button>
-        <button className="view-all-button">View All</button>
-      </div>
+        </div>
+  <div className="actions-container">
+    <div className="quick-actions">
+      <button className="randomize-button">Randomize</button>
+      <p>Use default settings for a quick match.</p>
     </div>
+    <div className="advanced-actions">
+      <button className="customize-button">Customize</button>
+      <p>Adjust settings to find your perfect match.</p>
+    </div>
+  </div>
+  <div className="view-all-container">
+    <button className="view-all-button">View All Matches</button>
+  </div>
+</div>
   );
 };
 

@@ -1,8 +1,7 @@
 .scheduling-container {
-    width: 100%;
-    height: 250px;
-    margin-top: 50px;
-    margin-bottom: 150px;
+    width: 80%; /* Adjusted for better desktop presentation */
+    max-width: 1200px; /* Added for limiting width on very large screens */
+    margin: 50px auto; /* Adjusted to center the container horizontally */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -12,7 +11,6 @@
     font-size: 35px;
     margin-bottom: 50px;
 }
-
 
 .time-dropdown-guests-slider {
     display: flex;
@@ -41,7 +39,7 @@ select {
     padding: 10px 15px;
     border-radius: 8px;
     border: 1px solid #ccc;
-    appearance: none; /* This removes the default OS styling */
+    appearance: none;
     background-color: #fff;
     background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 140 140" width="16" height="16" xmlns="http://www.w3.org/2000/svg"><path d="M35,45l70,70 M105,45L35,115" stroke="#333" stroke-width="10" fill="none"/></svg>');
     background-repeat: no-repeat;
@@ -55,9 +53,8 @@ input[type="range"] {
 }
 
 select, input[type="range"] {
-    margin-left: 10px; /* added this line */
+    margin-left: 10px;
 }
-
 
 .slider {
     display: flex;
@@ -65,15 +62,83 @@ select, input[type="range"] {
     gap: 20px;
 }
 
-
 .button-div {
     width: 100%;
     display: flex;
     justify-content: center;
-    gap: 50px
+    gap: 50px;
+    flex-wrap: wrap;
 }
-.button-div > button{
+
+.button-div > button {
     width: 250px;
     height: 150px;
-    margin: 50px
+    margin: 50px;
+    box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+    .scheduling-container {
+        width: 100%; /* Adjusted for better mobile presentation */
+        padding-bottom: 20px;
+    }
+
+    .time-dropdown-guests-slider {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .button-div {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .button-div > button {
+        width: 100%;
+        height: auto;
+        padding: 15px;
+        margin: 10px 0;
+    }
+}
+
+.actions-container {
+    display: flex;
+    justify-content: space-around; /* Adjusted for better spacing */
+    width: 100%;
+    margin-top: 20px;
+}
+
+.quick-actions, .advanced-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 45%; /* Adjusted to fit better side by side */
+}
+
+.quick-actions p, .advanced-actions p {
+    font-size: 14px;
+    color: #777;
+    text-align: center;
+}
+
+.view-all-container {
+    margin-top: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.view-all-button {
+    padding: 15px 25px;
+    font-size: 18px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.view-all-button:hover {
+    background-color: #45a049;
 }
