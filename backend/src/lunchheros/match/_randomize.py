@@ -1,7 +1,7 @@
 import random
 
 from lunchheros.db.dbFetcher import parse_user_id_tolist
-from lunchheros import GROUP_SIZE
+
 
 
 def _randomize_groups(group_size: int, users: list[str]) -> list[list]:
