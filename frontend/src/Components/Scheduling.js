@@ -26,11 +26,12 @@ const Scheduling = (props) => {
   };
 
   const featureSoon = () => {
+    //Demo mode until Backend is applied
     setMatchRequest(true);
     const timer = setTimeout(() => {
       setMatchRequestResult(true);
       clearTimeout(timer); // Clear the timer after execution
-    }, 10000); // 10 seconds or 10,000 milliseconds
+    }, 1000); // 10 seconds or 10,000 milliseconds
   };
 
   const sendSchedulingData = () => {
@@ -44,61 +45,63 @@ const Scheduling = (props) => {
       {matchRequest && <Status isScheduled={
         matchRequestResult
       } />}
-      <div className="scheduling-container">
-        <div className="time-dropdown-guests-slider">
-          <div className="time-dropdown">
-            <div>
-              <strong>Time Slot:</strong>
-              <select
-                value={props.timeSlot}
-                onChange={(e) =>
-                  props.onTimeSlotChange(e.target.value)
-                }
-              >
-                {generateTimeSlots().map((slot, index) => (
-                  <option key={index} value={slot}>
-                    {slot}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-          <div className="view-all-container">
-            <button className="view-all-button" onClick={featureSoon}>Request match</button>
-          </div>
-          {/* <div className="guests-slider">
-                    <div className="slider">
-                        <strong>Group Size:</strong>
-                        <input
-                            type="range"
-                            min="2"
-                            max="4"
-                            value={props.groupSize}
-                            onChange={(e) =>
-                                props.onGroupSizeChange(e.target.value)
-                            }
-                        />
-                        {props.groupSize} Persons
-                    </div>
-                </div> */}
-        </div>
-        {/* <div className="actions-container">
-                <div className="quick-actions">
-                    <button className="view-all-button" onClick={sendSchedulingData}>Randomize</button>
-                    <p>Use default settings for a quick match.</p>
-                </div>
-                <div className="advanced-actions">
-                    <button className="view-all-button" onClick={featureSoon}>
-                        Customize
-                    </button>
-                    <p>Adjust settings to find your perfect match.</p>
-                </div>
+
+      {matchRequestResult ? null :
+        <div className="scheduling-container">
+          <div className="time-dropdown-guests-slider">
+            <div className="time-dropdown">
+              <div>
+                <strong>Time Slot:</strong>
+                <select
+                  value={props.timeSlot}
+                  onChange={(e) =>
+                    props.onTimeSlotChange(e.target.value)
+                  }
+                >
+                  {generateTimeSlots().map((slot, index) => (
+                    <option key={index} value={slot}>
+                      {slot}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
             <div className="view-all-container">
-                <button className="view-all-button">View All Matches</button>
-            </div> */}
-      </div>
-      {/* <Status isScheduled={props.isScheduled} /> */}
+              <button className="view-all-button" onClick={featureSoon}>Request match</button>
+            </div>
+            {/* <div className="guests-slider">
+                        <div className="slider">
+                            <strong>Group Size:</strong>
+                            <input
+                                type="range"
+                                min="2"
+                                max="4"
+                                value={props.groupSize}
+                                onChange={(e) =>
+                                    props.onGroupSizeChange(e.target.value)
+                                }
+                            />
+                            {props.groupSize} Persons
+                        </div>
+                    </div> */}
+          </div>
+          {/* <div className="actions-container">
+                    <div className="quick-actions">
+                        <button className="view-all-button" onClick={sendSchedulingData}>Randomize</button>
+                        <p>Use default settings for a quick match.</p>
+                    </div>
+                    <div className="advanced-actions">
+                        <button className="view-all-button" onClick={featureSoon}>
+                            Customize
+                        </button>
+                        <p>Adjust settings to find your perfect match.</p>
+                    </div>
+                </div>
+                <div className="view-all-container">
+                    <button className="view-all-button">View All Matches</button>
+                </div> */}
+        </div>
+      }
     </>
   );
 };
