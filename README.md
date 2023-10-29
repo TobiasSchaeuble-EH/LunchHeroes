@@ -5,7 +5,22 @@
 
 # LunchHeroes
 
-Lunch Heros Basel Hack Event Repo
+🍴 Lunch Heroes Basel Hack 2023 🦸‍♂️🦸‍♀️
+
+Matchmaking for lunch buddies! 🤝
+
+- 👉 Sign up in seconds
+- 🕒 Select a timeslot
+- 🤝 Get matched with a small group of people
+    - 🤷‍♂️ At Random  OR
+    - 🤖 Based on your interests (Machine Learning powered !!!)
+- 🍽️ Get your table number
+- 🤝 Meet for lunch
+
+🚀 Quick, easy, and fun! Join us and find your lunch hero today! 🦸‍♂️🦸‍♀️
+
+
+
 
 # Presentation Slides
 
