@@ -1,53 +1,64 @@
 .login-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.7);  /* Semi-transparent black */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     display: flex;
-    align-items: center;
-    justify-content: center;
     flex-direction: column;
-  }
-  
-  h2 {
-    color: #fff;
-    margin-bottom: 20px;
-  }
-  
-  form {
-    background-color: #fff;
+    justify-content: center;
+    align-items: center;
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-  }
-  
-  label {
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    align-items: center;
+}
+
+.form-group label {
     display: block;
-    margin-bottom: 10px;
-    color: #333;
-  }
-  
-  input[type="text"], input[type="password"] {
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+.form-control {
     width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-top: 5px;
-  }
-  
-  button {
-    background-color: #007BFF;
-    color: #fff;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-sizing: border-box; /* Ensure padding and border are included in element's total width */
+}
+
+.form-control:focus {
+    outline: none;
+}
+
+.btn {
+    font-size: 16px;
+    background-color: #007caa;
+    color: white;
+    padding: 10px; /* Update to match .form-control */
     border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  
+    display: block;
+    width: 100%; /* Button takes up full width of parent */
+    text-align: center;
+    box-sizing: border-box; /* Ensure padding and border are included in element's total width */
+    outline: none;
+}
+
+.btn:hover {
+    background-color: #afd3e8;
+    transition: all 0.5s ease;
+}
+
+.btn:active {
+    background-color: #afd3e8;
+    transition: all 0.5s ease;
+}
