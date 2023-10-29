@@ -60,6 +60,10 @@ function App() {
   const Wrapper = () => {
     return (
       <div>
+      <video width="100%" autoPlay loop muted className="non-clickable">
+        <source src="/Lunch.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
         <Scheduling
           groupSize={groupSize}
           timeSlot={timeSlot}

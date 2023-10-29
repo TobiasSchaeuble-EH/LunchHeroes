@@ -18,6 +18,7 @@
   /* Optional: Added transition for smoother display changes */
   border: 1px solid rgba(80, 102, 113, 0.75);
   border-radius: 10px;
+  z-index: 10;
 }
 .hidden {
   display: none;
