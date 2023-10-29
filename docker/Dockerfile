@@ -11,7 +11,7 @@ COPY backend/pyproject.toml backend/poetry.lock /app/
 
 # Install dependencies without creating a virtual environment
 RUN poetry config virtualenvs.create false \
-    && poetry install --no-dev --no-interaction --no-ansi
+    && poetry install --only main --no-interaction --no-ansi
 
 # Install Gunicorn
 RUN pip install gunicorn
@@ -56,3 +56,5 @@ EXPOSE 80
 
 # Start Gunicorn and Nginx
 CMD ["sh", "-c", "gunicorn -c /etc/gunicorn/gunicorn.conf app:app & nginx -g 'daemon off;'"]
+
+#CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]
