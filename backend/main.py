@@ -29,20 +29,30 @@ def load_current_user(userId):
 
 @app.get("/button_trigger/{userId}/{time_slot}")
 def load_current_user(userId: str, time_slot: int):
+
+ 
     userData = getUserWithId(userId)
+
+    
     companyId = userData.data["company"]["id"]
     age_rangeId = userData.data["age_range"]["id"]
     time_rangeId = time_slot
     today = datetime.today().date()
+    today = "10.29.2023"
+
 
     #python try catch
     data = ""
+
     try:
+
+  
         data = supabase_client.table("query_waiting").insert([{"user": userId, "date": today, "company" :companyId , "age_range":age_rangeId, "time_range":time_rangeId, }]).execute()
 
     except(Exception):
-        print("error")
-    
+        print("Error first")
+
+ 
      
     queryList = getAllQueryListData()[1]
 
