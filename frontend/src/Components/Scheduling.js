@@ -1,5 +1,7 @@
 import React from 'react';
 import '../SCSS/scheduling.css';
+import Status from './Status';
+
 const Scheduling = (props) => {
     const generateTimeSlots = () => {
         let slots = [];
@@ -17,6 +19,7 @@ const Scheduling = (props) => {
         window.alert('Feature coming soon!');
     };
     return (
+      <>
         <div className="scheduling-container">
             <div className="scheduling-header">
                 Fancy having lunch together with interesting people?
@@ -39,7 +42,10 @@ const Scheduling = (props) => {
                         </select>
                     </div>
                 </div>
-                <div className="guests-slider">
+                <div className="view-all-container">
+                <button className="view-all-button" onClick={featureSoon}>Search match</button>
+            </div>
+                {/* <div className="guests-slider">
                     <div className="slider">
                         <strong>Group Size:</strong>
                         <input
@@ -53,9 +59,9 @@ const Scheduling = (props) => {
                         />
                         {props.groupSize} Persons
                     </div>
-                </div>
+                </div> */}
             </div>
-            <div className="actions-container">
+            {/* <div className="actions-container">
                 <div className="quick-actions">
                     <button className="view-all-button">Randomize</button>
                     <p>Use default settings for a quick match.</p>
@@ -69,8 +75,11 @@ const Scheduling = (props) => {
             </div>
             <div className="view-all-container">
                 <button className="view-all-button">View All Matches</button>
-            </div>
+            </div> */}
         </div>
+        <Status isScheduled={props.isScheduled} />
+        <Status isScheduled={!props.isScheduled} />
+        </>
     );
 };
 export default Scheduling;

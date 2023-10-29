@@ -6,7 +6,6 @@ import Login from './Components/Login';
 import Navigation from './Components/Navigation';
 // import { useNavigate, useDispatch } from "react-router-dom";
 import Profile from './Components/Profile';
-import Status from './Components/Status';
 import {useSelector} from 'react-redux';  // import useSelector from react-redux
 import { Route, Navigate, Routes, useNavigate } from 'react-router-dom';  // import Route and Navigate from react-router-dom
 import Scheduling from './Components/Scheduling';
@@ -70,8 +69,6 @@ function App() {
           onGroupSizeChange={handleGroupSizeChange} // Changed from props.onGroupSizeChange
           onTimeSlotChange={handleTimeSlotChange}
         />
-        <Status isScheduled={props.isScheduled} />
-        <Status isScheduled={!props.isScheduled} />
       </div>
     );
   }
