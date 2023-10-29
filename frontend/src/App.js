@@ -9,8 +9,6 @@ import Status from './Components/Status';
 import {useSelector} from 'react-redux';  // import useSelector from react-redux
 import { Route, Navigate, Routes } from 'react-router-dom';  // import Route and Navigate from react-router-dom
 import Scheduling from './Components/Scheduling';
-import { Button } from 'react-scroll';
-
 import{ supabase } from './supabaseclient';
 
 function App() {
