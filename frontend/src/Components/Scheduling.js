@@ -55,7 +55,7 @@ const Scheduling = (props) => {
                     </div>
                 </div>
                 <div className="view-all-container">
-                <button className="view-all-button" onClick={featureSoon}>Search match</button>
+                <button className="view-all-button" onClick={featureSoon}>Request match</button>
             </div>
                 {/* <div className="guests-slider">
                     <div className="slider">
