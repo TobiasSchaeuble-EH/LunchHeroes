@@ -4,15 +4,16 @@ import "../SCSS/scheduling.css";
 const Scheduling = (props) => {
   const generateTimeSlots = () => {
     let slots = [];
-    for (let i = 0; i < 24; i++) {
-      for (let j = 0; j < 60; j += 30) {
-        const hour = String(i).padStart(2, "12:00");
-        const minute = String(j).padStart(2, "0");
-        slots.push(`${hour}:${minute}`);
-      }
+    for (let i = 11; i <= 14; i++) {
+        for (let j = 0; j < 60; j += 30) {
+            if (i === 14 && j > 0) break;  // Avoid adding 14:30
+            const hour = String(i).padStart(2, '0');
+            const minute = String(j).padStart(2, '0');
+            slots.push(`${hour}:${minute}`);
+        }
     }
     return slots;
-  };
+};
 
   return (
     <div className="scheduling-container">
