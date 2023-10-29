@@ -1,4 +1,5 @@
-import React, { useState, useEffect} from 'react';
+
+import React, { useState, useEffect } from 'react';
 // import logo from './logo.svg';
 import './App.css';
 import Login from './Components/Login';
@@ -9,9 +10,12 @@ import Status from './Components/Status';
 import {useSelector} from 'react-redux';  // import useSelector from react-redux
 import { Route, Navigate, Routes, useNavigate } from 'react-router-dom';  // import Route and Navigate from react-router-dom
 import Scheduling from './Components/Scheduling';
-// import{ supabase } from './supabaseclient';
 
 function App() {
+
+  const user = useSelector(state => state.session.user);
+  console.log("LOGIN USER", user?.user?.id);
+  console.log("LOGIN", user);
 
   // const [isLoaded, setIsLoaded] = useState(false);
   // useEffect(() => {
@@ -41,9 +45,7 @@ function App() {
     setTimeSlot(slot);
   }
 
-  const user = useSelector(state => state.session.user);
-  console.log("LOGIN USER", user?.user?.id);
-  console.log("LOGIN", user);
+
 
   const RedirectToHome = () => {
     const navigate = useNavigate();

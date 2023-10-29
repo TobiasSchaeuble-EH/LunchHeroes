@@ -40,7 +40,7 @@ function Navigation({ isLoaded }) {
     <>
       <div className="nav-div-user-logged-in">
         <div className="nav-icon-user-logged-in">
-          <Link exact to="/">
+          <Link exact to="/home">
             <img className="responsive-logo" alt="Here the Basel Hack Logo is displayed" src="/Logo.svg" />
             <img className="responsive-logo" alt="Here the Basel Hack Logo is displayed" src="/burger_wink.svg" />
           </Link>
