@@ -13,6 +13,7 @@ supabase = "^1.2.0"
 fastapi = "^0.104.0"
 python-dotenv = "^1.0.0"
 uvicorn = "^0.23.2"
+matplotlib = "^3.8.1"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -24,7 +25,7 @@ pytest-xdist = "^3.2.0"
 pre-commit = "^3.1.0"
 interrogate = "^1.5.0"
 pyright = "^1.1.309"
-
+setuptools = "<60.0"  #  NumPy 1.23.0, requires old setuptools
 
 [tool.coverage.report]
 fail_under = 85.0
