@@ -1,6 +1,102 @@
 # Spike Interest-Based ML Matching
 
-**Part 1: Profile Generation, Data Binarization, and Clustering**
+Let’s try to get the interest based matching to work. Here I am trying
+to make a proof-of-concept to do the simplest form to make a
+machine-learning based matching of users based on interest. I am just
+curious how hard / easy it would have been to do.
+
+**The below code was generated with Chat-GPT4-1106-preview - was not
+checked for statitical correctnes. Some parts in the binarization I
+don’t understand. K-means is obvisously a very simple and flawed
+method. - Nevertheless, I am pretty impressed by this code.**
+
+## Constraints
+
+no person has lunch alone, group size larger than 2 no groups larger
+than 10, won’t find a table people with similar interest are clustered
+together most shared interests should be returned
+
+## Data
+
+Try to cluster people based on their age and interest, perhaps even
+suggesting some shared topics. The raw data is just a series of binary
+selections. All fields are optional. Here are some of the fields, but
+not exclusive to:
+
+- age-range: 18-25, 26-35, 36-45…
+- sports activities: Skiing, Football, Jogging, Hiking, Swimming
+- pets: cats, dogs
+- type of lunch discussion: casual, professional
+- nationality: German, Swiss, Austrian…
+- children: yes, no
+- hobbies: travel, music, art, healthy-living, mindfulness..
+
+So the data will come in a dictionary, with booleans for each item.
+
+### Bias
+
+We implement an age based bias:
+
+- Older individuals (grouped in the second half) are more likely to have
+  children and prefer professional discussions.
+- Younger individuals (grouped in the first half) are less likely to
+  have children and prefer casual discussions.
+
+The `bias_strength` parameter controls how strong the bias is. A larger
+value means that the assigned attribute (`'yes'` for children and
+`'professional'` for lunch discussion type) is more likely to be chosen
+for older age groups.
+
+The `assign_age` function is now biased so that the first half of the
+generated people are more likely to be in the ‘18-25’ age range, while
+the second half is more likely to be in the ‘66+’ age group. This
+division helps create a clearer separation to demonstrate how the bias
+works.
+
+The generated data now reflects these biases and can be used for
+clustering with the expectation that older people will often be grouped
+based on their preference for professional discussions and the presence
+of children.
+
+## Description of the Code’s Functionality:
+
+1.  **Profile Generation**: The code starts by generating a set of
+    synthetic user profiles for a hypothetical lunch date randomizer
+    app. This step randomly assigns attributes to each profile, such as
+    age range, sports activities, and hobbies. There is also a provision
+    for missing data to simulate optional fields.
+
+2.  **Data Binarization**: Because many machine learning algorithms,
+    including K-Means clustering, require numerical input, the
+    categorical data for each user profile is binarized. This transforms
+    the data into a format where each category and its possible values
+    are represented by binary vectors (0s and 1s).
+
+3.  **Clustering**: The K-Means clustering algorithm is then applied to
+    group user profiles into clusters based on their similarity. A
+    custom clustering function enforces minimum and maximum cluster size
+    constraints by adjusting the number of clusters.
+
+4.  **Cluster Visualization**: The code uses Principal Component
+    Analysis (PCA) to reduce the high-dimensional binarized data to two
+    dimensions, which is then visualized in a scatter plot. Each point
+    represents a profile, and points are colored according to their
+    cluster assignment.
+
+5.  **Cluster Analysis**: After clustering, the code computes the most
+    common attributes in each cluster to identify shared interests or
+    features within the group.
+
+# Code
+
+This script:
+
+- Ensures that the `KMeans` clustering has at least one cluster.
+- Uses PCA to visualize the clusters.
+- Calculates the most common attributes for each cluster and prints the
+  profiles.
+
+### Part 1: Profile Generation, Data Binarization, and Clustering
 
 ``` python
 import random
@@ -74,12 +170,11 @@ num_profiles = 56
 profiles = generate_profiles(num_profiles)
 ```
 
-**Part 2: Perform Clustering, Visualization, and Analysis of Common
-Interests**
+### Part 2: Perform Clustering, Visualization, and Analysis of Common Interests
 
 ``` python
 # Custom clustering with a limit on the number of iterations to prevent infinite loops
-def custom_clustering(data, min_size, max_size, max_iterations=10):
+def custom_clustering(data, min_size, max_size, max_iterations=30):
     num_clusters = max(len(data) // ((min_size + max_size) // 2), 1)
     labels = KMeans(n_clusters=num_clusters, random_state=42).fit_predict(data)
     
@@ -196,124 +291,195 @@ for cluster_id, cluster_profiles in clustered_profiles.items():
       super()._check_params_vs_input(X, default_n_init=10)
     /Users/gordonkoehn/opt/anaconda3/envs/baselhack/lib/python3.9/site-packages/sklearn/cluster/_kmeans.py:1416: FutureWarning: The default value of `n_init` will change from 10 to 'auto' in 1.4. Set the value of `n_init` explicitly to suppress the warning
       super()._check_params_vs_input(X, default_n_init=10)
+    /Users/gordonkoehn/opt/anaconda3/envs/baselhack/lib/python3.9/site-packages/sklearn/cluster/_kmeans.py:1416: FutureWarning: The default value of `n_init` will change from 10 to 'auto' in 1.4. Set the value of `n_init` explicitly to suppress the warning
+      super()._check_params_vs_input(X, default_n_init=10)
+    /Users/gordonkoehn/opt/anaconda3/envs/baselhack/lib/python3.9/site-packages/sklearn/cluster/_kmeans.py:1416: FutureWarning: The default value of `n_init` will change from 10 to 'auto' in 1.4. Set the value of `n_init` explicitly to suppress the warning
+      super()._check_params_vs_input(X, default_n_init=10)
+    /Users/gordonkoehn/opt/anaconda3/envs/baselhack/lib/python3.9/site-packages/sklearn/cluster/_kmeans.py:1416: FutureWarning: The default value of `n_init` will change from 10 to 'auto' in 1.4. Set the value of `n_init` explicitly to suppress the warning
+      super()._check_params_vs_input(X, default_n_init=10)
+    /Users/gordonkoehn/opt/anaconda3/envs/baselhack/lib/python3.9/site-packages/sklearn/cluster/_kmeans.py:1416: FutureWarning: The default value of `n_init` will change from 10 to 'auto' in 1.4. Set the value of `n_init` explicitly to suppress the warning
+      super()._check_params_vs_input(X, default_n_init=10)
+    /Users/gordonkoehn/opt/anaconda3/envs/baselhack/lib/python3.9/site-packages/sklearn/cluster/_kmeans.py:1416: FutureWarning: The default value of `n_init` will change from 10 to 'auto' in 1.4. Set the value of `n_init` explicitly to suppress the warning
+      super()._check_params_vs_input(X, default_n_init=10)
+    /Users/gordonkoehn/opt/anaconda3/envs/baselhack/lib/python3.9/site-packages/sklearn/cluster/_kmeans.py:1416: FutureWarning: The default value of `n_init` will change from 10 to 'auto' in 1.4. Set the value of `n_init` explicitly to suppress the warning
+      super()._check_params_vs_input(X, default_n_init=10)
+    /Users/gordonkoehn/opt/anaconda3/envs/baselhack/lib/python3.9/site-packages/sklearn/cluster/_kmeans.py:1416: FutureWarning: The default value of `n_init` will change from 10 to 'auto' in 1.4. Set the value of `n_init` explicitly to suppress the warning
+      super()._check_params_vs_input(X, default_n_init=10)
+    /Users/gordonkoehn/opt/anaconda3/envs/baselhack/lib/python3.9/site-packages/sklearn/cluster/_kmeans.py:1416: FutureWarning: The default value of `n_init` will change from 10 to 'auto' in 1.4. Set the value of `n_init` explicitly to suppress the warning
+      super()._check_params_vs_input(X, default_n_init=10)
+    /Users/gordonkoehn/opt/anaconda3/envs/baselhack/lib/python3.9/site-packages/sklearn/cluster/_kmeans.py:1416: FutureWarning: The default value of `n_init` will change from 10 to 'auto' in 1.4. Set the value of `n_init` explicitly to suppress the warning
+      super()._check_params_vs_input(X, default_n_init=10)
+    /Users/gordonkoehn/opt/anaconda3/envs/baselhack/lib/python3.9/site-packages/sklearn/cluster/_kmeans.py:1416: FutureWarning: The default value of `n_init` will change from 10 to 'auto' in 1.4. Set the value of `n_init` explicitly to suppress the warning
+      super()._check_params_vs_input(X, default_n_init=10)
+    /Users/gordonkoehn/opt/anaconda3/envs/baselhack/lib/python3.9/site-packages/sklearn/cluster/_kmeans.py:1416: FutureWarning: The default value of `n_init` will change from 10 to 'auto' in 1.4. Set the value of `n_init` explicitly to suppress the warning
+      super()._check_params_vs_input(X, default_n_init=10)
+    /Users/gordonkoehn/opt/anaconda3/envs/baselhack/lib/python3.9/site-packages/sklearn/cluster/_kmeans.py:1416: FutureWarning: The default value of `n_init` will change from 10 to 'auto' in 1.4. Set the value of `n_init` explicitly to suppress the warning
+      super()._check_params_vs_input(X, default_n_init=10)
+    /Users/gordonkoehn/opt/anaconda3/envs/baselhack/lib/python3.9/site-packages/sklearn/cluster/_kmeans.py:1416: FutureWarning: The default value of `n_init` will change from 10 to 'auto' in 1.4. Set the value of `n_init` explicitly to suppress the warning
+      super()._check_params_vs_input(X, default_n_init=10)
+    /Users/gordonkoehn/opt/anaconda3/envs/baselhack/lib/python3.9/site-packages/sklearn/cluster/_kmeans.py:1416: FutureWarning: The default value of `n_init` will change from 10 to 'auto' in 1.4. Set the value of `n_init` explicitly to suppress the warning
+      super()._check_params_vs_input(X, default_n_init=10)
+    /Users/gordonkoehn/opt/anaconda3/envs/baselhack/lib/python3.9/site-packages/sklearn/cluster/_kmeans.py:1416: FutureWarning: The default value of `n_init` will change from 10 to 'auto' in 1.4. Set the value of `n_init` explicitly to suppress the warning
+      super()._check_params_vs_input(X, default_n_init=10)
+    /Users/gordonkoehn/opt/anaconda3/envs/baselhack/lib/python3.9/site-packages/sklearn/cluster/_kmeans.py:1416: FutureWarning: The default value of `n_init` will change from 10 to 'auto' in 1.4. Set the value of `n_init` explicitly to suppress the warning
+      super()._check_params_vs_input(X, default_n_init=10)
+    /Users/gordonkoehn/opt/anaconda3/envs/baselhack/lib/python3.9/site-packages/sklearn/cluster/_kmeans.py:1416: FutureWarning: The default value of `n_init` will change from 10 to 'auto' in 1.4. Set the value of `n_init` explicitly to suppress the warning
+      super()._check_params_vs_input(X, default_n_init=10)
+    /Users/gordonkoehn/opt/anaconda3/envs/baselhack/lib/python3.9/site-packages/sklearn/cluster/_kmeans.py:1416: FutureWarning: The default value of `n_init` will change from 10 to 'auto' in 1.4. Set the value of `n_init` explicitly to suppress the warning
+      super()._check_params_vs_input(X, default_n_init=10)
+    /Users/gordonkoehn/opt/anaconda3/envs/baselhack/lib/python3.9/site-packages/sklearn/cluster/_kmeans.py:1416: FutureWarning: The default value of `n_init` will change from 10 to 'auto' in 1.4. Set the value of `n_init` explicitly to suppress the warning
+      super()._check_params_vs_input(X, default_n_init=10)
+    /Users/gordonkoehn/opt/anaconda3/envs/baselhack/lib/python3.9/site-packages/sklearn/cluster/_kmeans.py:1416: FutureWarning: The default value of `n_init` will change from 10 to 'auto' in 1.4. Set the value of `n_init` explicitly to suppress the warning
+      super()._check_params_vs_input(X, default_n_init=10)
 
 ![](Trial_ML_Clustering_files/figure-commonmark/cell-3-output-2.png)
 
 
-    Cluster 0 (Size: 4):
-    {'age_range': '56-65', 'sports_activities': [], 'pets': 'dogs', 'type_of_lunch_discussion': 'professional', 'nationality': 'Austrian', 'children': 'no_children', 'hobbies': ['music', 'healthy-living', 'travel', 'mindfulness']}
-    {'age_range': None, 'sports_activities': ['Swimming', 'Football'], 'pets': 'dogs', 'type_of_lunch_discussion': None, 'nationality': 'Austrian', 'children': 'no_children', 'hobbies': ['healthy-living', 'travel', 'music', 'art']}
-    {'age_range': '56-65', 'sports_activities': ['Football', 'Swimming', 'Skiing', 'Jogging', 'Hiking'], 'pets': None, 'type_of_lunch_discussion': None, 'nationality': 'Austrian', 'children': 'no_children', 'hobbies': ['music', 'art', 'healthy-living', 'travel', 'mindfulness']}
-    {'age_range': '66+', 'sports_activities': ['Football', 'Skiing', 'Jogging', 'Swimming'], 'pets': None, 'type_of_lunch_discussion': None, 'nationality': 'Austrian', 'children': 'children', 'hobbies': ['healthy-living', 'travel', 'art', 'music']}
-    Common Interests: {'age_range': None, 'sports_activities': ['Skiing', 'Swimming'], 'pets': None, 'type_of_lunch_discussion': None, 'nationality': 'German', 'children': 'children', 'hobbies': ['travel', 'music', 'healthy-living', 'mindfulness']}
+    Cluster 0 (Size: 5):
+    {'age_range': '18-25', 'sports_activities': ['Hiking', 'Jogging', 'Swimming'], 'pets': 'cats', 'type_of_lunch_discussion': None, 'nationality': None, 'children': 'children', 'hobbies': ['art', 'travel', 'healthy-living', 'mindfulness', 'music']}
+    {'age_range': '18-25', 'sports_activities': ['Jogging', 'Football'], 'pets': 'dogs', 'type_of_lunch_discussion': None, 'nationality': 'Austrian', 'children': 'children', 'hobbies': ['art', 'healthy-living', 'mindfulness', 'travel', 'music']}
+    {'age_range': '18-25', 'sports_activities': ['Football', 'Skiing', 'Swimming', 'Jogging'], 'pets': None, 'type_of_lunch_discussion': 'professional', 'nationality': 'German', 'children': 'children', 'hobbies': ['travel', 'music', 'mindfulness']}
+    {'age_range': '18-25', 'sports_activities': ['Football', 'Jogging', 'Swimming'], 'pets': None, 'type_of_lunch_discussion': None, 'nationality': 'Austrian', 'children': 'no_children', 'hobbies': ['mindfulness', 'music']}
+    {'age_range': '18-25', 'sports_activities': ['Swimming'], 'pets': 'dogs', 'type_of_lunch_discussion': 'professional', 'nationality': None, 'children': 'children', 'hobbies': ['art', 'travel', 'music', 'mindfulness']}
+    Common Interests: {'age_range': '18-25', 'sports_activities': ['Skiing', 'Jogging', 'Swimming'], 'pets': None, 'type_of_lunch_discussion': None, 'nationality': None, 'children': 'no_children', 'hobbies': ['travel', 'art', 'healthy-living', 'mindfulness']}
 
 
-    Cluster 1 (Size: 8):
-    {'age_range': '26-35', 'sports_activities': [], 'pets': 'cats', 'type_of_lunch_discussion': None, 'nationality': 'Austrian', 'children': 'children', 'hobbies': ['healthy-living', 'travel', 'music']}
-    {'age_range': '36-45', 'sports_activities': ['Skiing'], 'pets': 'cats', 'type_of_lunch_discussion': 'casual', 'nationality': 'Swiss', 'children': 'children', 'hobbies': ['travel', 'healthy-living']}
-    {'age_range': '26-35', 'sports_activities': ['Hiking'], 'pets': 'cats', 'type_of_lunch_discussion': 'casual', 'nationality': None, 'children': 'children', 'hobbies': ['art', 'travel']}
-    {'age_range': None, 'sports_activities': [], 'pets': 'cats', 'type_of_lunch_discussion': 'casual', 'nationality': None, 'children': 'children', 'hobbies': ['travel', 'art', 'healthy-living']}
-    {'age_range': '26-35', 'sports_activities': ['Hiking'], 'pets': 'dogs', 'type_of_lunch_discussion': None, 'nationality': None, 'children': 'children', 'hobbies': ['travel', 'healthy-living', 'art']}
-    {'age_range': None, 'sports_activities': ['Football'], 'pets': None, 'type_of_lunch_discussion': 'casual', 'nationality': 'Swiss', 'children': 'children', 'hobbies': ['healthy-living', 'art']}
-    {'age_range': '36-45', 'sports_activities': ['Skiing', 'Swimming'], 'pets': 'dogs', 'type_of_lunch_discussion': 'casual', 'nationality': 'Swiss', 'children': 'children', 'hobbies': ['art', 'mindfulness', 'healthy-living']}
-    {'age_range': None, 'sports_activities': [], 'pets': 'cats', 'type_of_lunch_discussion': 'casual', 'nationality': None, 'children': 'children', 'hobbies': ['healthy-living', 'art']}
-    Common Interests: {'age_range': None, 'sports_activities': [], 'pets': 'cats', 'type_of_lunch_discussion': 'casual', 'nationality': None, 'children': 'no_children', 'hobbies': ['travel', 'music', 'mindfulness']}
+    Cluster 1 (Size: 7):
+    {'age_range': None, 'sports_activities': [], 'pets': 'cats', 'type_of_lunch_discussion': 'professional', 'nationality': None, 'children': 'children', 'hobbies': ['healthy-living', 'music', 'travel']}
+    {'age_range': '56-65', 'sports_activities': ['Swimming'], 'pets': 'cats', 'type_of_lunch_discussion': None, 'nationality': None, 'children': 'children', 'hobbies': ['music', 'travel', 'mindfulness', 'healthy-living', 'art']}
+    {'age_range': None, 'sports_activities': [], 'pets': 'cats', 'type_of_lunch_discussion': 'professional', 'nationality': 'German', 'children': 'children', 'hobbies': ['music', 'healthy-living', 'travel']}
+    {'age_range': '56-65', 'sports_activities': ['Skiing'], 'pets': 'cats', 'type_of_lunch_discussion': 'professional', 'nationality': 'German', 'children': 'children', 'hobbies': ['art', 'travel', 'mindfulness', 'music', 'healthy-living']}
+    {'age_range': '66+', 'sports_activities': [], 'pets': None, 'type_of_lunch_discussion': 'professional', 'nationality': None, 'children': 'children', 'hobbies': ['art', 'music', 'mindfulness', 'travel', 'healthy-living']}
+    {'age_range': None, 'sports_activities': [], 'pets': 'cats', 'type_of_lunch_discussion': 'casual', 'nationality': 'German', 'children': 'children', 'hobbies': ['mindfulness', 'music']}
+    {'age_range': '18-25', 'sports_activities': [], 'pets': 'cats', 'type_of_lunch_discussion': 'casual', 'nationality': 'German', 'children': 'children', 'hobbies': ['music']}
+    Common Interests: {'age_range': None, 'sports_activities': [], 'pets': 'cats', 'type_of_lunch_discussion': 'professional', 'nationality': 'Swiss', 'children': 'no_children', 'hobbies': ['music', 'art', 'healthy-living', 'mindfulness']}
 
 
-    Cluster 2 (Size: 10):
-    {'age_range': '18-25', 'sports_activities': ['Jogging', 'Football', 'Skiing', 'Hiking', 'Swimming'], 'pets': 'dogs', 'type_of_lunch_discussion': None, 'nationality': 'German', 'children': 'children', 'hobbies': ['healthy-living', 'music', 'mindfulness', 'art']}
-    {'age_range': '56-65', 'sports_activities': ['Hiking', 'Skiing', 'Swimming', 'Football'], 'pets': 'cats', 'type_of_lunch_discussion': None, 'nationality': None, 'children': 'children', 'hobbies': ['music', 'art', 'mindfulness', 'healthy-living']}
-    {'age_range': '36-45', 'sports_activities': ['Skiing', 'Hiking', 'Swimming', 'Football', 'Jogging'], 'pets': 'cats', 'type_of_lunch_discussion': 'professional', 'nationality': None, 'children': 'children', 'hobbies': ['music', 'healthy-living']}
-    {'age_range': None, 'sports_activities': ['Hiking', 'Swimming', 'Jogging', 'Skiing'], 'pets': 'cats', 'type_of_lunch_discussion': None, 'nationality': None, 'children': 'children', 'hobbies': ['healthy-living', 'music', 'mindfulness', 'art', 'travel']}
-    {'age_range': '46-55', 'sports_activities': ['Skiing', 'Football', 'Swimming'], 'pets': 'cats', 'type_of_lunch_discussion': None, 'nationality': 'German', 'children': 'children', 'hobbies': ['art', 'travel', 'healthy-living', 'music']}
-    {'age_range': None, 'sports_activities': ['Skiing', 'Swimming', 'Jogging'], 'pets': 'cats', 'type_of_lunch_discussion': None, 'nationality': 'Austrian', 'children': 'children', 'hobbies': ['art']}
-    {'age_range': '18-25', 'sports_activities': ['Skiing', 'Hiking', 'Swimming', 'Football'], 'pets': 'cats', 'type_of_lunch_discussion': 'casual', 'nationality': 'Austrian', 'children': 'children', 'hobbies': ['travel', 'art', 'mindfulness', 'healthy-living']}
-    {'age_range': '46-55', 'sports_activities': ['Football', 'Swimming', 'Hiking'], 'pets': 'cats', 'type_of_lunch_discussion': 'casual', 'nationality': None, 'children': 'children', 'hobbies': ['healthy-living', 'travel', 'mindfulness', 'music']}
-    {'age_range': '56-65', 'sports_activities': ['Skiing', 'Swimming', 'Jogging'], 'pets': 'cats', 'type_of_lunch_discussion': None, 'nationality': None, 'children': 'children', 'hobbies': ['art', 'music']}
-    {'age_range': '18-25', 'sports_activities': ['Hiking', 'Skiing', 'Swimming'], 'pets': 'cats', 'type_of_lunch_discussion': 'casual', 'nationality': 'Swiss', 'children': 'children', 'hobbies': ['art', 'travel', 'music', 'healthy-living', 'mindfulness']}
-    Common Interests: {'age_range': None, 'sports_activities': ['Skiing', 'Football', 'Hiking', 'Swimming'], 'pets': 'cats', 'type_of_lunch_discussion': None, 'nationality': None, 'children': 'no_children', 'hobbies': ['travel', 'music', 'art', 'healthy-living']}
+    Cluster 2 (Size: 5):
+    {'age_range': '36-45', 'sports_activities': ['Jogging', 'Skiing', 'Hiking', 'Swimming', 'Football'], 'pets': None, 'type_of_lunch_discussion': None, 'nationality': 'Swiss', 'children': 'no_children', 'hobbies': ['art', 'music', 'mindfulness', 'travel', 'healthy-living']}
+    {'age_range': '36-45', 'sports_activities': ['Jogging'], 'pets': None, 'type_of_lunch_discussion': None, 'nationality': 'Swiss', 'children': 'no_children', 'hobbies': ['healthy-living', 'mindfulness', 'art']}
+    {'age_range': '36-45', 'sports_activities': ['Swimming', 'Hiking', 'Skiing', 'Football', 'Jogging'], 'pets': 'cats', 'type_of_lunch_discussion': None, 'nationality': None, 'children': 'no_children', 'hobbies': ['art', 'travel', 'healthy-living', 'mindfulness', 'music']}
+    {'age_range': '46-55', 'sports_activities': ['Jogging', 'Football', 'Swimming', 'Hiking', 'Skiing'], 'pets': None, 'type_of_lunch_discussion': None, 'nationality': None, 'children': 'no_children', 'hobbies': ['healthy-living', 'art', 'mindfulness']}
+    {'age_range': '18-25', 'sports_activities': ['Football', 'Swimming', 'Skiing'], 'pets': None, 'type_of_lunch_discussion': None, 'nationality': 'Swiss', 'children': 'no_children', 'hobbies': ['healthy-living', 'art', 'mindfulness', 'music']}
+    Common Interests: {'age_range': '36-45', 'sports_activities': ['Skiing', 'Football', 'Jogging', 'Hiking', 'Swimming'], 'pets': None, 'type_of_lunch_discussion': None, 'nationality': 'Austrian', 'children': 'children', 'hobbies': ['travel', 'music', 'art', 'healthy-living']}
 
 
-    Cluster 3 (Size: 3):
-    {'age_range': '56-65', 'sports_activities': ['Football', 'Hiking', 'Skiing', 'Swimming', 'Jogging'], 'pets': 'cats', 'type_of_lunch_discussion': 'casual', 'nationality': 'Swiss', 'children': 'children', 'hobbies': []}
-    {'age_range': None, 'sports_activities': ['Swimming', 'Hiking', 'Football', 'Jogging', 'Skiing'], 'pets': None, 'type_of_lunch_discussion': 'casual', 'nationality': 'Swiss', 'children': 'children', 'hobbies': ['travel', 'music', 'mindfulness']}
-    {'age_range': '36-45', 'sports_activities': ['Swimming', 'Jogging', 'Hiking', 'Football'], 'pets': None, 'type_of_lunch_discussion': 'professional', 'nationality': 'Swiss', 'children': 'children', 'hobbies': ['healthy-living', 'music', 'mindfulness', 'travel']}
-    Common Interests: {'age_range': None, 'sports_activities': ['Skiing', 'Football', 'Jogging', 'Hiking', 'Swimming'], 'pets': None, 'type_of_lunch_discussion': 'casual', 'nationality': 'Austrian', 'children': 'no_children', 'hobbies': ['art', 'healthy-living', 'mindfulness']}
+    Cluster 3 (Size: 7):
+    {'age_range': '46-55', 'sports_activities': ['Skiing'], 'pets': None, 'type_of_lunch_discussion': 'casual', 'nationality': None, 'children': 'children', 'hobbies': ['travel', 'healthy-living']}
+    {'age_range': '26-35', 'sports_activities': ['Skiing'], 'pets': 'cats', 'type_of_lunch_discussion': 'casual', 'nationality': None, 'children': 'children', 'hobbies': ['art']}
+    {'age_range': '36-45', 'sports_activities': ['Skiing', 'Jogging'], 'pets': None, 'type_of_lunch_discussion': 'casual', 'nationality': 'German', 'children': 'children', 'hobbies': ['healthy-living', 'art', 'travel', 'mindfulness', 'music']}
+    {'age_range': '18-25', 'sports_activities': ['Hiking', 'Skiing'], 'pets': 'cats', 'type_of_lunch_discussion': 'casual', 'nationality': 'Swiss', 'children': 'children', 'hobbies': ['healthy-living', 'mindfulness', 'travel']}
+    {'age_range': '46-55', 'sports_activities': ['Football', 'Jogging'], 'pets': None, 'type_of_lunch_discussion': None, 'nationality': 'Swiss', 'children': 'children', 'hobbies': ['travel', 'art']}
+    {'age_range': '56-65', 'sports_activities': ['Jogging', 'Swimming', 'Skiing'], 'pets': 'dogs', 'type_of_lunch_discussion': 'casual', 'nationality': 'Swiss', 'children': 'children', 'hobbies': ['art', 'healthy-living']}
+    {'age_range': None, 'sports_activities': ['Football', 'Skiing'], 'pets': None, 'type_of_lunch_discussion': 'casual', 'nationality': 'Austrian', 'children': 'children', 'hobbies': ['healthy-living']}
+    Common Interests: {'age_range': None, 'sports_activities': ['Hiking'], 'pets': None, 'type_of_lunch_discussion': 'casual', 'nationality': None, 'children': 'no_children', 'hobbies': ['travel', 'music', 'mindfulness']}
 
 
     Cluster 4 (Size: 6):
-    {'age_range': '66+', 'sports_activities': ['Skiing', 'Football', 'Jogging', 'Hiking'], 'pets': 'dogs', 'type_of_lunch_discussion': 'casual', 'nationality': 'Swiss', 'children': 'children', 'hobbies': ['travel', 'art']}
-    {'age_range': '26-35', 'sports_activities': ['Hiking', 'Jogging', 'Skiing', 'Football'], 'pets': 'dogs', 'type_of_lunch_discussion': None, 'nationality': 'Austrian', 'children': 'children', 'hobbies': []}
-    {'age_range': '36-45', 'sports_activities': ['Swimming', 'Hiking', 'Skiing', 'Football', 'Jogging'], 'pets': None, 'type_of_lunch_discussion': None, 'nationality': None, 'children': 'no_children', 'hobbies': ['mindfulness']}
-    {'age_range': '66+', 'sports_activities': ['Swimming', 'Hiking', 'Skiing', 'Football'], 'pets': None, 'type_of_lunch_discussion': 'casual', 'nationality': 'German', 'children': 'children', 'hobbies': []}
-    {'age_range': '66+', 'sports_activities': ['Swimming', 'Hiking', 'Football', 'Jogging', 'Skiing'], 'pets': 'dogs', 'type_of_lunch_discussion': None, 'nationality': None, 'children': 'children', 'hobbies': []}
-    {'age_range': '26-35', 'sports_activities': ['Football', 'Swimming', 'Hiking', 'Skiing', 'Jogging'], 'pets': 'dogs', 'type_of_lunch_discussion': None, 'nationality': None, 'children': 'children', 'hobbies': ['healthy-living']}
-    Common Interests: {'age_range': None, 'sports_activities': ['Skiing', 'Football', 'Jogging', 'Hiking', 'Swimming'], 'pets': 'dogs', 'type_of_lunch_discussion': None, 'nationality': None, 'children': 'no_children', 'hobbies': []}
+    {'age_range': '36-45', 'sports_activities': ['Football', 'Jogging', 'Hiking', 'Swimming', 'Skiing'], 'pets': 'dogs', 'type_of_lunch_discussion': None, 'nationality': None, 'children': 'children', 'hobbies': ['healthy-living', 'music', 'art']}
+    {'age_range': '36-45', 'sports_activities': ['Jogging', 'Football', 'Skiing', 'Hiking', 'Swimming'], 'pets': None, 'type_of_lunch_discussion': 'casual', 'nationality': 'Austrian', 'children': 'children', 'hobbies': []}
+    {'age_range': '18-25', 'sports_activities': ['Swimming', 'Jogging', 'Hiking', 'Skiing', 'Football'], 'pets': 'cats', 'type_of_lunch_discussion': 'casual', 'nationality': None, 'children': 'children', 'hobbies': ['art', 'music']}
+    {'age_range': '18-25', 'sports_activities': ['Hiking', 'Jogging', 'Skiing', 'Swimming', 'Football'], 'pets': None, 'type_of_lunch_discussion': 'professional', 'nationality': 'Swiss', 'children': 'children', 'hobbies': ['travel', 'art', 'music']}
+    {'age_range': '26-35', 'sports_activities': ['Jogging', 'Swimming', 'Hiking', 'Football'], 'pets': 'cats', 'type_of_lunch_discussion': 'casual', 'nationality': None, 'children': 'children', 'hobbies': ['music', 'travel', 'healthy-living']}
+    {'age_range': '46-55', 'sports_activities': ['Jogging', 'Football', 'Swimming', 'Skiing'], 'pets': 'cats', 'type_of_lunch_discussion': 'casual', 'nationality': None, 'children': 'children', 'hobbies': ['art', 'healthy-living', 'music', 'mindfulness', 'travel']}
+    Common Interests: {'age_range': None, 'sports_activities': ['Skiing', 'Football', 'Jogging', 'Hiking', 'Swimming'], 'pets': None, 'type_of_lunch_discussion': 'casual', 'nationality': None, 'children': 'no_children', 'hobbies': ['travel', 'healthy-living']}
 
 
-    Cluster 5 (Size: 5):
-    {'age_range': '66+', 'sports_activities': [], 'pets': 'dogs', 'type_of_lunch_discussion': 'professional', 'nationality': 'German', 'children': 'children', 'hobbies': ['art', 'healthy-living', 'music', 'travel', 'mindfulness']}
-    {'age_range': '36-45', 'sports_activities': [], 'pets': 'dogs', 'type_of_lunch_discussion': 'professional', 'nationality': 'German', 'children': 'children', 'hobbies': ['healthy-living', 'mindfulness', 'music', 'travel']}
-    {'age_range': '36-45', 'sports_activities': [], 'pets': 'dogs', 'type_of_lunch_discussion': None, 'nationality': 'German', 'children': 'no_children', 'hobbies': ['art', 'healthy-living', 'music', 'travel', 'mindfulness']}
-    {'age_range': '56-65', 'sports_activities': ['Skiing'], 'pets': 'dogs', 'type_of_lunch_discussion': 'professional', 'nationality': 'German', 'children': 'children', 'hobbies': ['music', 'art', 'healthy-living', 'mindfulness']}
-    {'age_range': None, 'sports_activities': [], 'pets': None, 'type_of_lunch_discussion': None, 'nationality': 'German', 'children': 'children', 'hobbies': ['art', 'music', 'mindfulness']}
-    Common Interests: {'age_range': None, 'sports_activities': [], 'pets': 'dogs', 'type_of_lunch_discussion': 'professional', 'nationality': 'Swiss', 'children': 'no_children', 'hobbies': ['travel', 'music', 'art', 'healthy-living', 'mindfulness']}
+    Cluster 5 (Size: 4):
+    {'age_range': '56-65', 'sports_activities': ['Jogging', 'Hiking', 'Football', 'Skiing', 'Swimming'], 'pets': 'dogs', 'type_of_lunch_discussion': 'professional', 'nationality': None, 'children': 'children', 'hobbies': ['mindfulness']}
+    {'age_range': '46-55', 'sports_activities': ['Swimming', 'Football', 'Jogging', 'Skiing', 'Hiking'], 'pets': 'dogs', 'type_of_lunch_discussion': 'professional', 'nationality': None, 'children': 'children', 'hobbies': ['art', 'music']}
+    {'age_range': None, 'sports_activities': ['Skiing'], 'pets': 'dogs', 'type_of_lunch_discussion': 'professional', 'nationality': None, 'children': 'children', 'hobbies': ['art', 'mindfulness']}
+    {'age_range': '26-35', 'sports_activities': ['Football', 'Swimming'], 'pets': 'dogs', 'type_of_lunch_discussion': 'professional', 'nationality': 'Swiss', 'children': 'children', 'hobbies': []}
+    Common Interests: {'age_range': None, 'sports_activities': ['Skiing', 'Hiking', 'Swimming'], 'pets': 'dogs', 'type_of_lunch_discussion': 'professional', 'nationality': None, 'children': 'no_children', 'hobbies': []}
 
 
-    Cluster 6 (Size: 6):
-    {'age_range': '26-35', 'sports_activities': ['Hiking', 'Jogging'], 'pets': 'dogs', 'type_of_lunch_discussion': None, 'nationality': 'Austrian', 'children': 'children', 'hobbies': ['travel', 'healthy-living', 'art', 'music', 'mindfulness']}
-    {'age_range': '26-35', 'sports_activities': ['Swimming', 'Jogging'], 'pets': None, 'type_of_lunch_discussion': 'casual', 'nationality': 'German', 'children': 'children', 'hobbies': ['travel', 'healthy-living', 'art', 'music', 'mindfulness']}
-    {'age_range': None, 'sports_activities': ['Jogging'], 'pets': 'dogs', 'type_of_lunch_discussion': None, 'nationality': None, 'children': 'children', 'hobbies': ['music', 'travel', 'mindfulness', 'healthy-living']}
-    {'age_range': None, 'sports_activities': ['Hiking', 'Jogging', 'Swimming'], 'pets': 'dogs', 'type_of_lunch_discussion': 'professional', 'nationality': 'Swiss', 'children': 'children', 'hobbies': ['mindfulness', 'art', 'travel', 'healthy-living']}
-    {'age_range': '66+', 'sports_activities': ['Jogging'], 'pets': 'dogs', 'type_of_lunch_discussion': None, 'nationality': None, 'children': 'children', 'hobbies': ['mindfulness']}
-    {'age_range': '46-55', 'sports_activities': ['Hiking'], 'pets': 'dogs', 'type_of_lunch_discussion': None, 'nationality': None, 'children': 'children', 'hobbies': ['mindfulness', 'travel', 'music', 'art']}
-    Common Interests: {'age_range': None, 'sports_activities': ['Jogging'], 'pets': 'dogs', 'type_of_lunch_discussion': None, 'nationality': None, 'children': 'no_children', 'hobbies': ['travel', 'music', 'art', 'healthy-living', 'mindfulness']}
+    Cluster 6 (Size: 2):
+    {'age_range': '26-35', 'sports_activities': ['Swimming'], 'pets': 'cats', 'type_of_lunch_discussion': None, 'nationality': 'German', 'children': 'no_children', 'hobbies': ['healthy-living', 'music', 'art']}
+    {'age_range': '56-65', 'sports_activities': ['Skiing', 'Swimming'], 'pets': 'dogs', 'type_of_lunch_discussion': None, 'nationality': 'German', 'children': 'no_children', 'hobbies': ['healthy-living', 'mindfulness', 'music']}
+    Common Interests: {'age_range': None, 'sports_activities': ['Swimming'], 'pets': None, 'type_of_lunch_discussion': None, 'nationality': 'Swiss', 'children': 'children', 'hobbies': ['music', 'healthy-living']}
 
 
-    Cluster 7 (Size: 2):
-    {'age_range': '56-65', 'sports_activities': [], 'pets': 'cats', 'type_of_lunch_discussion': 'professional', 'nationality': 'Swiss', 'children': 'children', 'hobbies': ['art', 'healthy-living', 'travel', 'mindfulness', 'music']}
-    {'age_range': None, 'sports_activities': ['Swimming'], 'pets': 'cats', 'type_of_lunch_discussion': 'professional', 'nationality': None, 'children': 'children', 'hobbies': ['music', 'healthy-living', 'art', 'mindfulness', 'travel']}
-    Common Interests: {'age_range': None, 'sports_activities': [], 'pets': 'cats', 'type_of_lunch_discussion': 'professional', 'nationality': None, 'children': 'no_children', 'hobbies': ['travel', 'music', 'art', 'healthy-living', 'mindfulness']}
+    Cluster 7 (Size: 6):
+    {'age_range': '18-25', 'sports_activities': ['Hiking'], 'pets': 'dogs', 'type_of_lunch_discussion': 'professional', 'nationality': 'German', 'children': 'children', 'hobbies': ['music', 'healthy-living', 'mindfulness', 'art']}
+    {'age_range': '26-35', 'sports_activities': ['Football', 'Hiking', 'Jogging'], 'pets': 'dogs', 'type_of_lunch_discussion': 'professional', 'nationality': 'German', 'children': 'children', 'hobbies': ['mindfulness', 'music', 'travel', 'healthy-living', 'art']}
+    {'age_range': None, 'sports_activities': ['Hiking', 'Jogging'], 'pets': None, 'type_of_lunch_discussion': 'professional', 'nationality': None, 'children': 'children', 'hobbies': ['healthy-living', 'art', 'mindfulness', 'travel']}
+    {'age_range': '26-35', 'sports_activities': ['Hiking', 'Jogging'], 'pets': 'cats', 'type_of_lunch_discussion': 'professional', 'nationality': None, 'children': 'children', 'hobbies': ['mindfulness', 'healthy-living', 'art', 'music']}
+    {'age_range': '36-45', 'sports_activities': ['Football', 'Hiking'], 'pets': 'dogs', 'type_of_lunch_discussion': None, 'nationality': 'German', 'children': 'children', 'hobbies': ['mindfulness', 'art', 'travel']}
+    {'age_range': '46-55', 'sports_activities': ['Swimming', 'Hiking'], 'pets': None, 'type_of_lunch_discussion': 'professional', 'nationality': None, 'children': 'children', 'hobbies': ['music', 'travel', 'mindfulness', 'healthy-living', 'art']}
+    Common Interests: {'age_range': None, 'sports_activities': ['Football'], 'pets': None, 'type_of_lunch_discussion': 'professional', 'nationality': None, 'children': 'no_children', 'hobbies': ['travel', 'music', 'art', 'healthy-living', 'mindfulness']}
 
 
-    Cluster 8 (Size: 1):
-    {'age_range': '18-25', 'sports_activities': ['Skiing'], 'pets': 'dogs', 'type_of_lunch_discussion': 'casual', 'nationality': None, 'children': 'no_children', 'hobbies': ['mindfulness', 'music', 'art']}
-    Common Interests: {'age_range': '18-25', 'sports_activities': ['Hiking'], 'pets': 'dogs', 'type_of_lunch_discussion': 'casual', 'nationality': None, 'children': 'children', 'hobbies': ['travel', 'art', 'healthy-living']}
+    Cluster 8 (Size: 6):
+    {'age_range': '56-65', 'sports_activities': ['Hiking', 'Swimming', 'Jogging'], 'pets': 'cats', 'type_of_lunch_discussion': 'professional', 'nationality': 'German', 'children': 'no_children', 'hobbies': ['travel', 'mindfulness']}
+    {'age_range': '46-55', 'sports_activities': ['Skiing', 'Swimming', 'Football', 'Hiking', 'Jogging'], 'pets': 'cats', 'type_of_lunch_discussion': 'professional', 'nationality': 'Austrian', 'children': 'no_children', 'hobbies': ['healthy-living', 'mindfulness', 'art', 'travel']}
+    {'age_range': None, 'sports_activities': ['Jogging'], 'pets': 'cats', 'type_of_lunch_discussion': None, 'nationality': 'Swiss', 'children': 'no_children', 'hobbies': ['travel']}
+    {'age_range': '26-35', 'sports_activities': ['Skiing', 'Football', 'Jogging', 'Hiking', 'Swimming'], 'pets': 'cats', 'type_of_lunch_discussion': 'professional', 'nationality': 'Austrian', 'children': 'no_children', 'hobbies': ['music', 'travel']}
+    {'age_range': None, 'sports_activities': ['Swimming', 'Football', 'Skiing', 'Jogging'], 'pets': 'cats', 'type_of_lunch_discussion': 'professional', 'nationality': None, 'children': 'no_children', 'hobbies': ['music', 'mindfulness', 'travel', 'art']}
+    {'age_range': '46-55', 'sports_activities': ['Hiking', 'Jogging'], 'pets': 'cats', 'type_of_lunch_discussion': 'casual', 'nationality': 'Austrian', 'children': 'no_children', 'hobbies': ['music', 'mindfulness', 'travel', 'art']}
+    Common Interests: {'age_range': None, 'sports_activities': ['Football', 'Jogging', 'Swimming'], 'pets': 'cats', 'type_of_lunch_discussion': 'professional', 'nationality': None, 'children': 'children', 'hobbies': ['art', 'mindfulness']}
 
 
-    Cluster 9 (Size: 2):
-    {'age_range': '56-65', 'sports_activities': ['Swimming'], 'pets': 'dogs', 'type_of_lunch_discussion': None, 'nationality': None, 'children': 'children', 'hobbies': []}
-    {'age_range': '56-65', 'sports_activities': ['Hiking'], 'pets': 'dogs', 'type_of_lunch_discussion': None, 'nationality': 'Swiss', 'children': 'children', 'hobbies': ['healthy-living', 'art', 'music']}
-    Common Interests: {'age_range': '56-65', 'sports_activities': [], 'pets': 'dogs', 'type_of_lunch_discussion': None, 'nationality': None, 'children': 'no_children', 'hobbies': []}
+    Cluster 9 (Size: 5):
+    {'age_range': '46-55', 'sports_activities': [], 'pets': None, 'type_of_lunch_discussion': 'professional', 'nationality': None, 'children': 'children', 'hobbies': []}
+    {'age_range': '46-55', 'sports_activities': [], 'pets': 'cats', 'type_of_lunch_discussion': None, 'nationality': 'Austrian', 'children': 'children', 'hobbies': []}
+    {'age_range': '46-55', 'sports_activities': ['Hiking', 'Swimming'], 'pets': 'dogs', 'type_of_lunch_discussion': 'casual', 'nationality': 'Swiss', 'children': 'children', 'hobbies': []}
+    {'age_range': '46-55', 'sports_activities': [], 'pets': 'cats', 'type_of_lunch_discussion': 'professional', 'nationality': 'Swiss', 'children': 'children', 'hobbies': ['art']}
+    {'age_range': '46-55', 'sports_activities': ['Hiking', 'Swimming'], 'pets': 'cats', 'type_of_lunch_discussion': 'professional', 'nationality': None, 'children': 'children', 'hobbies': []}
+    Common Interests: {'age_range': '46-55', 'sports_activities': [], 'pets': 'cats', 'type_of_lunch_discussion': 'professional', 'nationality': None, 'children': 'no_children', 'hobbies': []}
 
 
-    Cluster 10 (Size: 5):
-    {'age_range': '18-25', 'sports_activities': ['Football', 'Jogging'], 'pets': 'dogs', 'type_of_lunch_discussion': 'casual', 'nationality': 'Austrian', 'children': 'children', 'hobbies': ['travel', 'music']}
-    {'age_range': '18-25', 'sports_activities': ['Hiking', 'Jogging', 'Skiing', 'Football'], 'pets': 'cats', 'type_of_lunch_discussion': 'professional', 'nationality': None, 'children': 'children', 'hobbies': ['mindfulness']}
-    {'age_range': '46-55', 'sports_activities': ['Swimming', 'Football', 'Jogging', 'Hiking'], 'pets': 'dogs', 'type_of_lunch_discussion': 'professional', 'nationality': 'Austrian', 'children': 'children', 'hobbies': ['art']}
-    {'age_range': '18-25', 'sports_activities': ['Football', 'Jogging'], 'pets': 'dogs', 'type_of_lunch_discussion': 'professional', 'nationality': None, 'children': 'children', 'hobbies': []}
-    {'age_range': '36-45', 'sports_activities': ['Skiing', 'Hiking', 'Jogging', 'Football'], 'pets': 'dogs', 'type_of_lunch_discussion': 'professional', 'nationality': 'Austrian', 'children': 'children', 'hobbies': ['mindfulness']}
-    Common Interests: {'age_range': '18-25', 'sports_activities': ['Skiing', 'Football', 'Jogging'], 'pets': 'dogs', 'type_of_lunch_discussion': 'professional', 'nationality': 'German', 'children': 'no_children', 'hobbies': []}
+    Cluster 10 (Size: 3):
+    {'age_range': '36-45', 'sports_activities': ['Football'], 'pets': None, 'type_of_lunch_discussion': 'professional', 'nationality': 'German', 'children': 'no_children', 'hobbies': ['healthy-living', 'art']}
+    {'age_range': '56-65', 'sports_activities': [], 'pets': 'dogs', 'type_of_lunch_discussion': 'casual', 'nationality': 'German', 'children': 'no_children', 'hobbies': ['healthy-living']}
+    {'age_range': '18-25', 'sports_activities': ['Swimming'], 'pets': 'dogs', 'type_of_lunch_discussion': 'casual', 'nationality': 'Austrian', 'children': 'no_children', 'hobbies': ['music']}
+    Common Interests: {'age_range': None, 'sports_activities': [], 'pets': 'dogs', 'type_of_lunch_discussion': 'casual', 'nationality': 'Swiss', 'children': 'children', 'hobbies': ['music']}
 
+## Statistical Design Flaws and Suggestions for Improvement:
 
-    Cluster 11 (Size: 2):
-    {'age_range': '46-55', 'sports_activities': ['Jogging', 'Swimming', 'Skiing'], 'pets': 'dogs', 'type_of_lunch_discussion': 'casual', 'nationality': 'German', 'children': 'children', 'hobbies': []}
-    {'age_range': None, 'sports_activities': ['Skiing', 'Jogging', 'Swimming'], 'pets': None, 'type_of_lunch_discussion': 'casual', 'nationality': None, 'children': 'children', 'hobbies': ['travel', 'healthy-living']}
-    Common Interests: {'age_range': None, 'sports_activities': ['Jogging', 'Hiking', 'Swimming'], 'pets': None, 'type_of_lunch_discussion': 'casual', 'nationality': None, 'children': 'no_children', 'hobbies': []}
+1.  **Random Data Generation**: The synthetic profiles are randomly
+    generated, which may not reflect real-world user behaviors and
+    preferences. The randomness can result in unnatural clusters that
+    don’t mirror actual patterns.
 
+    *Improvement*: Use real user data or design more sophisticated
+    synthetic data generation methods that better resemble the expected
+    distributions and correlations of attributes.
 
-    Cluster 12 (Size: 2):
-    {'age_range': '66+', 'sports_activities': ['Swimming', 'Jogging', 'Hiking'], 'pets': None, 'type_of_lunch_discussion': 'casual', 'nationality': 'Austrian', 'children': 'children', 'hobbies': ['music', 'mindfulness', 'art', 'healthy-living']}
-    {'age_range': '66+', 'sports_activities': ['Jogging'], 'pets': None, 'type_of_lunch_discussion': 'casual', 'nationality': 'Swiss', 'children': 'children', 'hobbies': ['music', 'art', 'mindfulness', 'healthy-living']}
-    Common Interests: {'age_range': '66+', 'sports_activities': ['Jogging'], 'pets': None, 'type_of_lunch_discussion': 'casual', 'nationality': None, 'children': 'no_children', 'hobbies': ['travel', 'music', 'art', 'healthy-living']}
+2.  **Missing Data Handling**: The current implementation treats missing
+    data as a complete absence of interest, potentially creating a bias
+    toward non-selection.
 
-This script: - Ensures that the `KMeans` clustering has at least one
-cluster. - Uses PCA to visualize the clusters. - Calculates the most
-common attributes for each cluster and prints the profiles.
+    *Improvement*: Utilize techniques for missing data treatment such as
+    imputation or model-based methods that can handle missing values
+    more appropriately.
 
-Be sure to join both parts of the code in the same Python script and run
-them together. This will create and display clusters with the specified
-constraints, visualize the results, and output common interests for each
-cluster. Make sure you have the necessary libraries (`numpy`,
-`matplotlib`, `scikit-learn`) installed in your Python environment
-before running the script.
+3.  **Cluster Size Constraints**: The custom clustering function
+    brute-forces cluster sizes, which may result in non-optimal
+    clustering assignments and potentially infinite loops.
+
+    *Improvement*: Develop or adopt a clustering algorithm that
+    inherently respects cluster size constraints rather than post-hoc
+    adjustments.
+
+4.  **PCA for Visualization**: While PCA is a popular dimensionality
+    reduction technique, it may not always preserve the structure of
+    clusters in high-dimensional data when visualizing in two
+    dimensions.
+
+    *Improvement*: Explore alternative dimensionality reduction
+    techniques like t-SNE or UMAP that might better preserve local
+    neighborhood structures during visualization.
+
+5.  **Cluster Interpretation**: The use of mode to determine common
+    cluster interests disregards the distribution of other attributes
+    and could be influenced by the most prevalent attribute in the
+    dataset.
+
+    *Improvement*: Consider the use of additional descriptive statistics
+    or machine learning interpretability tools to better understand
+    clusters’ characteristics.
+
+Overall, it’s important to iterate over the model with real user data
+and feedback, continuously fine-tuning the data-preparation pipeline,
+the clustering algorithm, and the reporting of results to better serve
+the application’s goals.
